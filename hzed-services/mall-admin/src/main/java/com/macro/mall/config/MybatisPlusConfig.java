@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2018/12/10
  */
 @Configuration
-@MapperScan({"com.macro.mall.mapper*"})
+@MapperScan({"com.macro.mall.mapper.*,com.macro.mall.dao.*"})
 public class MybatisPlusConfig extends DefaultMybatisPlusConfig {
 }
