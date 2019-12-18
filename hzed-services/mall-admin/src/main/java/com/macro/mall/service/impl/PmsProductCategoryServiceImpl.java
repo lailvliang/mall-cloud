@@ -8,6 +8,7 @@ import com.macro.mall.dto.PmsProductCategoryWithChildrenItem;
 import com.macro.mall.mapper.PmsProductCategoryAttributeRelationMapper;
 import com.macro.mall.mapper.PmsProductCategoryMapper;
 import com.macro.mall.mapper.PmsProductMapper;
+import com.macro.mall.model.*;
 import com.macro.mall.service.PmsProductCategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

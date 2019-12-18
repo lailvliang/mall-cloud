@@ -1,0 +1,11 @@
+server:
+  port: 7001
+
+spring:
+  application:
+    name: mall-admin
+#  cloud:
+#    nacos:
+#      discovery:
+#        metadata:
+#          version: hzed

@@ -1,5 +1,6 @@
 package com.macro.mall.service.impl;
 
+import com.macro.mall.model.*;
 import com.macro.mall.service.UmsRoleService;
 import com.macro.mall.dao.UmsRolePermissionRelationDao;
 import com.macro.mall.mapper.UmsRoleMapper;

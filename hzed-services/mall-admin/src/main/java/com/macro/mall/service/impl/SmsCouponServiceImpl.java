@@ -1,5 +1,6 @@
 package com.macro.mall.service.impl;
 
+import com.macro.mall.model.*;
 import com.macro.mall.service.SmsCouponService;
 import com.github.pagehelper.PageHelper;
 import com.macro.mall.dao.SmsCouponDao;

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.macro.mall.dao.PmsProductAttributeValueDao">
+    <resultMap id="portalProductAttribute" type="com.macro.mall.dto.ProductAttribute">
+        <result column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="value" jdbcType="VARCHAR" property="value" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+    </resultMap>
+
+    <select id="portalGetProAttri" resultMap="portalProductAttribute">
+        select a.id,a.`name`,v.`value`,a.sort
+        from pms_product_attribute a INNER JOIN pms_product_attribute_value v on a.id = v.product_attribute_id
+        where v.product_id=#{productId}
+        and a.type=0
+    </select>
+    <insert id="insertList">
+        insert into pms_product_attribute_value (id ,product_id,product_attribute_id,value) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id,jdbcType=BIGINT},
+            #{item.productId,jdbcType=BIGINT},
+            #{item.productAttributeId,jdbcType=BIGINT},
+            #{item.value,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+</mapper>

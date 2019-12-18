@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableSearchClient
 @EnableTransactionManagement
 @EnableFeignInterceptor
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.central"})
 public class MallAdminApplication {
     public static void main(String[] args) {
         SpringApplication.run(MallAdminApplication.class, args);

@@ -1,5 +1,6 @@
 package com.macro.mall.service.impl;
 
+import com.macro.mall.model.*;
 import com.macro.mall.service.UmsMemberService;
 import com.macro.mall.common.CommonResult;
 import com.macro.mall.domain.CartPromotionItem;

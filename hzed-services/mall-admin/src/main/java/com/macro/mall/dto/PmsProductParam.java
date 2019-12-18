@@ -1,5 +1,6 @@
 package com.macro.mall.dto;
 
+import com.macro.mall.model.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by macro on 2018/4/26.
  */
 @Data
-public class PmsProductParam extends PmsProduct{
+public class PmsProductParam extends PmsProduct {
     @ApiModelProperty("商品阶梯价格设置")
     private List<PmsProductLadder> productLadderList;
     @ApiModelProperty("商品满减价格设置")
