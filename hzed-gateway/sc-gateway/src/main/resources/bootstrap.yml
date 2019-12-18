@@ -1,0 +1,18 @@
+server:
+  port: 9900
+
+spring:
+  application:
+    name: sc-gateway
+#  cloud:
+#    sentinel:
+#      eager: true
+#      transport:
+#        dashboard: localhost:6999
+#      datasource.ds1.nacos:
+#        server-addr: localhost:8848
+#        data-id: ${spring.application.name}-flow-rules
+#        group-id: SENTINEL_GROUP
+#        ruleType: flow
+#      filter:
+#        enabled: true

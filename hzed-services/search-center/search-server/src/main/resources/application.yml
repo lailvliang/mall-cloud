@@ -1,0 +1,18 @@
+spring:
+  data:
+    elasticsearch:
+      cluster-name: ${hzed.elasticsearch.cluster-name}
+      cluster-nodes: ${hzed.elasticsearch.cluster-nodes}:9300
+  elasticsearch:
+    rest:
+      uris: ${hzed.elasticsearch.cluster-nodes}:9200
+
+hzed:
+  indices:
+    show: sys-log-*, mysql-slowlog-*, sys_user, point-log-*
+  swagger:
+    enabled: true
+    title: 搜索中心
+    description: 搜索中心接口文档
+    version: 1.0
+    base-package: com.central.search.controller
