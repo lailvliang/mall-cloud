@@ -5,8 +5,10 @@ spring:
     password: ${hzed.datasource.password}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-mybatis-plus:
-  mapper-locations: classpath:/mapper/*Mapper.xml
+mybatis:
+  mapper-locations:
+    - classpath: /dao/*.xml
+    - classpath: /mapper/*.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.macro.mall.model
   global-config:
@@ -35,8 +37,8 @@ mall:
 hzed:
   swagger:
     enabled: true
-    title: 用户中心
-    description: 用户中心接口文档
+    title: 商城后台用户中心
+    description: 商城后台用户中心接口文档
     version: 1.0
     base-package: com.macro.mall.controller
   cache-manager:
@@ -47,8 +49,5 @@ hzed:
         second: 1800
   #多租户配置
   tenant:
-    enable: true
+    enable: false
     ignoreTables:
-      - sys_user
-      - sys_role_user
-      - sys_role_menu
