@@ -1,4 +1,4 @@
-package com.macro.mall;
+package com.central;
 
 import com.central.common.ribbon.annotation.EnableFeignInterceptor;
 import com.central.search.annotation.EnableSearchClient;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableSearchClient
 @EnableTransactionManagement
 @EnableFeignInterceptor
-@SpringBootApplication(scanBasePackages = {"com.central"})
+@SpringBootApplication
 public class MallAdminApplication {
     public static void main(String[] args) {
         SpringApplication.run(MallAdminApplication.class, args);

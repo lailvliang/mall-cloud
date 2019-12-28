@@ -1,5 +1,5 @@
 server:
-  port: 7001
+  port: 9080
 
 spring:
   application:
@@ -8,4 +8,4 @@ spring:
 #    nacos:
 #      discovery:
 #        metadata:
-#          version: hzed
+#          version: zlt
