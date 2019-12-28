@@ -2,9 +2,9 @@ package com.central.oauth.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
 import com.central.common.feign.UserService;
+import com.central.common.model.CommonResult;
 import com.central.common.redis.template.RedisRepository;
 import com.central.common.constant.SecurityConstants;
-import com.central.common.model.Result;
 import com.central.common.model.SysUser;
 import com.central.oauth.exception.ValidateCodeException;
 import com.central.oauth.service.IValidateCodeService;
@@ -54,23 +54,23 @@ public class ValidateCodeServiceImpl implements IValidateCodeService {
      * @return true、false
      */
     @Override
-    public Result sendSmsCode(String mobile) {
+    public CommonResult sendSmsCode(String mobile) {
         Object tempCode = redisRepository.get(buildKey(mobile));
         if (tempCode != null) {
             log.error("用户:{}验证码未失效{}", mobile, tempCode);
-            return Result.failed("验证码未失效，请失效后再次申请");
+            return CommonResult.failed("验证码未失效，请失效后再次申请");
         }
 
         SysUser user = userService.findByMobile(mobile);
         if (user == null) {
             log.error("根据用户手机号{}查询用户为空", mobile);
-            return Result.failed("手机号不存在");
+            return CommonResult.failed("手机号不存在");
         }
 
         String code = RandomUtil.randomNumbers(4);
         log.info("短信发送请求消息中心 -> 手机号:{} -> 验证码：{}", mobile, code);
         redisRepository.setExpire(buildKey(mobile), code, SecurityConstants.DEFAULT_IMAGE_EXPIRE);
-        return Result.succeed("true");
+        return CommonResult.success("true");
     }
 
     /**

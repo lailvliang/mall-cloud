@@ -1,6 +1,8 @@
 package com.central.common.exception;
 
-import com.central.common.model.Result;
+import com.central.common.model.CommonResult;
+import com.central.common.model.IErrorCode;
+import com.central.common.model.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -24,8 +26,8 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({IllegalArgumentException.class})
-    public Result badRequestException(IllegalArgumentException e) {
-        return defHandler("参数解析失败", e);
+    public CommonResult badRequestException(IllegalArgumentException e) {
+        return defHandler(ResultCode.RESOLVE_FAILED, e);
     }
 
     /**
@@ -34,8 +36,8 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler({AccessDeniedException.class})
-    public Result badMethodExpressException(AccessDeniedException e) {
-        return defHandler("没有权限请求当前方法", e);
+    public CommonResult badMethodExpressException(AccessDeniedException e) {
+        return defHandler(ResultCode.FORBIDDEN, e);
     }
 
     /**
@@ -43,8 +45,8 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
-    public Result handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-        return defHandler("不支持当前请求方法", e);
+    public CommonResult handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+        return defHandler(ResultCode.METHOD_NOT_ALLOWED, e);
     }
 
     /**
@@ -52,8 +54,8 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     @ExceptionHandler({HttpMediaTypeNotSupportedException.class})
-    public Result handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
-        return defHandler("不支持当前媒体类型", e);
+    public CommonResult handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
+        return defHandler(ResultCode.UNSUPPORTED_MEDIA_TYPE, e);
     }
 
     /**
@@ -62,8 +64,8 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler({SQLException.class})
-    public Result handleSQLException(SQLException e) {
-        return defHandler("服务运行SQLException异常", e);
+    public CommonResult handleSQLException(SQLException e) {
+        return defHandler(ResultCode.SQL_EXCEPTION, e);
     }
 
     /**
@@ -72,8 +74,8 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(BusinessException.class)
-    public Result handleException(BusinessException e) {
-        return defHandler("业务异常", e);
+    public CommonResult handleException(BusinessException e) {
+        return defHandler(ResultCode.BUSINESS_EXCEPTION, e);
     }
 
     /**
@@ -82,8 +84,8 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(IdempotencyException.class)
-    public Result handleException(IdempotencyException e) {
-        return Result.failed(e.getMessage());
+    public CommonResult handleException(IdempotencyException e) {
+        return CommonResult.failed(e.getMessage());
     }
 
     /**
@@ -92,12 +94,12 @@ public class DefaultExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public Result handleException(Exception e) {
-        return defHandler("未知异常", e);
+    public CommonResult handleException(Exception e) {
+        return defHandler(ResultCode.UNKNOWN_EXCEPTION, e);
     }
 
-    private Result defHandler(String msg, Exception e) {
-        log.error(msg, e);
-        return Result.failed(msg);
+    private CommonResult defHandler(IErrorCode errorCode, Exception e) {
+        log.error(errorCode.getMessage(), e);
+        return CommonResult.failed(errorCode);
     }
 }

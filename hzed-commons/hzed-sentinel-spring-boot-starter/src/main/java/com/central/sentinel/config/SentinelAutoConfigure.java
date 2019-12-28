@@ -4,7 +4,7 @@ import cn.hutool.json.JSONUtil;
 import com.alibaba.csp.sentinel.adapter.servlet.callback.UrlBlockHandler;
 import com.alibaba.csp.sentinel.adapter.servlet.callback.WebCallbackManager;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import com.central.common.model.Result;
+import com.central.common.model.CommonResult;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +27,7 @@ public class SentinelAutoConfigure {
     public class CustomUrlBlockHandler implements UrlBlockHandler {
         @Override
         public void blocked(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e) throws IOException {
-            Result result = Result.failed("flow-limiting");
+            CommonResult result = CommonResult.failed("服务器繁忙，请稍后再试");
             httpServletResponse.getWriter().print(JSONUtil.toJsonStr(result));
         }
     }

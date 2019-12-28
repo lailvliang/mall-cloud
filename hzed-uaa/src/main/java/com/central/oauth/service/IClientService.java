@@ -1,7 +1,7 @@
 package com.central.oauth.service;
 
+import com.central.common.model.CommonResult;
 import com.central.common.model.PageResult;
-import com.central.common.model.Result;
 import com.central.common.service.ISuperService;
 import com.central.oauth.model.Client;
 
@@ -11,7 +11,7 @@ import java.util.Map;
  * @author hzed
  */
 public interface IClientService extends ISuperService<Client> {
-    Result saveClient(Client clientDto);
+    CommonResult saveClient(Client clientDto);
 
     /**
      * 查询应用列表

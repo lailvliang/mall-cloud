@@ -1,7 +1,7 @@
 package com.central.oauth.service.impl;
 
 import com.central.common.feign.UserService;
-import com.central.oauth.service.hzedUserDetailsService;
+import com.central.oauth.service.HzedUserDetailsService;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @Service
-public class UserDetailServiceImpl implements hzedUserDetailsService, SocialUserDetailsService {
+public class UserDetailServiceImpl implements HzedUserDetailsService, SocialUserDetailsService {
     @Resource
     private UserService userService;
 

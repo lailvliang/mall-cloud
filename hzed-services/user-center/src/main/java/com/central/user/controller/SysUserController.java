@@ -173,10 +173,10 @@ public class SysUserController {
             @ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "enabled", value = "是否启用", required = true, dataType = "Boolean")
     })
-    public Result updateEnabled(@RequestParam Map<String, Object> params) {
+    public CommonResult updateEnabled(@RequestParam Map<String, Object> params) {
         Long id = MapUtils.getLong(params, "id");
         if (checkAdmin(id)) {
-            return Result.failedWithMsgAndIErrorCode(ADMIN_CHANGE_MSG,ResultCode.FAILED);
+            return CommonResult.failed(ADMIN_CHANGE_MSG);
         }
         return appUserService.updateEnabled(params);
     }
@@ -247,7 +247,7 @@ public class SysUserController {
     }
 
     @PostMapping(value = "/users/import")
-    public Result importExcl(@RequestParam("file") MultipartFile excl) throws Exception {
+    public CommonResult importExcl(@RequestParam("file") MultipartFile excl) throws Exception {
         int rowNum = 0;
         if(!excl.isEmpty()) {
             List<SysUserExcel> list = ExcelUtil.importExcel(excl, 0, 1, SysUserExcel.class);
@@ -264,7 +264,7 @@ public class SysUserController {
                 appUserService.saveBatch(users);
             }
         }
-        return Result.succeedWithMsg("导入数据成功，一共【"+rowNum+"】行");
+        return CommonResult.success("导入数据成功，一共【"+rowNum+"】行");
     }
 
     @ApiOperation(value = "用户全文搜索列表")

@@ -1,7 +1,7 @@
 package com.central.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.central.common.model.Result;
+import com.central.common.model.CommonResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
@@ -35,7 +35,7 @@ public class ResponseUtil {
      * @throws IOException
      */
     public static void responseWriter(ObjectMapper objectMapper, HttpServletResponse response, String msg, int httpStatus) throws IOException {
-        Result result = Result.succeedWith(null, httpStatus, msg);
+        CommonResult result = CommonResult.success(httpStatus, msg);
         responseWrite(objectMapper, response, result);
     }
 
@@ -46,7 +46,7 @@ public class ResponseUtil {
      * @param obj
      */
     public static void responseSucceed(ObjectMapper objectMapper, HttpServletResponse response, Object obj) throws IOException {
-        Result result = Result.succeed(obj);
+        CommonResult result = CommonResult.success(obj);
         responseWrite(objectMapper, response, result);
     }
 
@@ -58,11 +58,11 @@ public class ResponseUtil {
      * @throws IOException
      */
     public static void responseFailed(ObjectMapper objectMapper, HttpServletResponse response, String msg) throws IOException {
-        Result result = Result.failed(msg);
+        CommonResult result = CommonResult.failed(msg);
         responseWrite(objectMapper, response, result);
     }
 
-    private static void responseWrite(ObjectMapper objectMapper, HttpServletResponse response, Result result) throws IOException {
+    private static void responseWrite(ObjectMapper objectMapper, HttpServletResponse response, CommonResult result) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         try (
                 Writer writer = response.getWriter()
@@ -76,11 +76,11 @@ public class ResponseUtil {
      * webflux的response返回json对象
      */
     public static Mono<Void> responseWriter(ServerWebExchange exchange, int httpStatus, String msg) {
-        Result result = Result.succeedWith(null, httpStatus, msg);
+        CommonResult result = CommonResult.success(httpStatus, msg);
         ServerHttpResponse response = exchange.getResponse();
         response.getHeaders().setAccessControlAllowCredentials(true);
         response.getHeaders().setAccessControlAllowOrigin("*");
-        response.setStatusCode(HttpStatus.valueOf(result.getResp_code()));
+        response.setStatusCode(HttpStatus.valueOf(String.valueOf(result.getCode())));
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON_UTF8);
         DataBufferFactory dataBufferFactory = response.bufferFactory();
         DataBuffer buffer = dataBufferFactory.wrap(JSONObject.toJSONString(result).getBytes(Charset.defaultCharset()));

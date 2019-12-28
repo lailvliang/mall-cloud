@@ -1,7 +1,7 @@
 package com.central.oauth.controller;
 
+import com.central.common.model.CommonResult;
 import com.central.common.model.PageResult;
-import com.central.common.model.Result;
 import com.central.oauth.dto.ClientDto;
 import com.central.oauth.model.Client;
 import com.central.oauth.service.IClientService;
@@ -40,9 +40,9 @@ public class ClientController {
 
     @GetMapping("/all")
     @ApiOperation(value = "所有应用")
-    public Result<List<Client>> allClient() {
+    public CommonResult<List<Client>> allClient() {
         PageResult<Client> page = clientService.listClent(Maps.newHashMap(), false);
-        return Result.succeed(page.getData());
+        return CommonResult.success(page.getData());
     }
 
     @DeleteMapping("/{id}")
@@ -53,7 +53,7 @@ public class ClientController {
 
     @PostMapping("/saveOrUpdate")
     @ApiOperation(value = "保存或者修改应用")
-    public Result saveOrUpdate(@RequestBody ClientDto clientDto) {
+    public CommonResult saveOrUpdate(@RequestBody ClientDto clientDto) {
         return clientService.saveClient(clientDto);
     }
 }

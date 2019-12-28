@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.central.common.constant.CommonConstant;
 import com.central.common.lock.DistributedLock;
+import com.central.common.model.CommonResult;
 import com.central.common.redis.template.RedisRepository;
 import com.central.common.constant.SecurityConstants;
 import com.central.common.model.PageResult;
-import com.central.common.model.Result;
 import com.central.common.service.impl.SuperServiceImpl;
 import com.central.oauth.mapper.ClientMapper;
 import com.central.oauth.model.Client;
@@ -39,14 +39,14 @@ public class ClientServiceImpl extends SuperServiceImpl<ClientMapper, Client> im
     private DistributedLock lock;
 
     @Override
-    public Result saveClient(Client client) {
+    public CommonResult saveClient(Client client) {
         client.setClientSecret(passwordEncoder.encode(client.getClientSecretStr()));
         String clientId = client.getClientId();
         super.saveOrUpdateIdempotency(client, lock
                 , LOCK_KEY_CLIENTID+clientId
                 , new QueryWrapper<Client>().eq("client_id", clientId)
                 , clientId + "已存在");
-        return Result.succeed("操作成功");
+        return CommonResult.success();
     }
 
     @Override

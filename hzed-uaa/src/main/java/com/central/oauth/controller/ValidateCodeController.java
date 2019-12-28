@@ -1,7 +1,7 @@
 package com.central.oauth.controller;
 
 import com.central.common.constant.SecurityConstants;
-import com.central.common.model.Result;
+import com.central.common.model.CommonResult;
 import com.central.oauth.service.IValidateCodeService;
 import com.wf.captcha.base.Captcha;
 import com.wf.captcha.GifCaptcha;
@@ -54,7 +54,7 @@ public class ValidateCodeController {
      */
     @ResponseBody
     @GetMapping(SecurityConstants.MOBILE_VALIDATE_CODE_URL_PREFIX + "/{mobile}")
-    public Result createCode(@PathVariable String mobile) {
+    public CommonResult createCode(@PathVariable String mobile) {
         Assert.notNull(mobile, "手机号不能为空");
         return validateCodeService.sendSmsCode(mobile);
     }

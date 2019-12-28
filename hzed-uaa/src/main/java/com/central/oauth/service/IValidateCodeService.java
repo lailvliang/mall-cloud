@@ -1,6 +1,7 @@
 package com.central.oauth.service;
 
-import com.central.common.model.Result;
+import com.central.common.model.CommonResult;
+import com.central.common.model.CommonResult;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,7 +17,7 @@ public interface IValidateCodeService {
      */
     void saveImageCode(String deviceId, String imageCode);
 
-    Result sendSmsCode(String mobile);
+    CommonResult sendSmsCode(String mobile);
 
     /**
      * 获取验证码

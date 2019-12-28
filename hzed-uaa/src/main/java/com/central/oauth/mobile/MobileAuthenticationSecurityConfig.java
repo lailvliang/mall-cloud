@@ -1,6 +1,6 @@
 package com.central.oauth.mobile;
 
-import com.central.oauth.service.hzedUserDetailsService;
+import com.central.oauth.service.HzedUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MobileAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
     @Autowired
-    private hzedUserDetailsService userDetailsService;
+    private HzedUserDetailsService userDetailsService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;

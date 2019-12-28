@@ -2,8 +2,7 @@ package com.central.file.controller;
 
 import java.util.Map;
 
-import com.central.common.model.Result;
-import com.central.common.model.ResultCode;
+import com.central.common.model.CommonResult;
 import com.central.file.service.IFileService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,12 +46,12 @@ public class FileController {
      * @param id
      */
     @DeleteMapping("/files/{id}")
-    public Result delete(@PathVariable String id) {
+    public CommonResult delete(@PathVariable String id) {
         try {
             fileService.delete(id);
-            return Result.succeed();
+            return CommonResult.success();
         } catch (Exception ex) {
-            return Result.failedWithIErrorCode(ResultCode.FAILED);
+            return CommonResult.failed();
         }
     }
 

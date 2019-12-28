@@ -7,7 +7,6 @@ import java.util.Set;
 import com.central.common.model.*;
 import com.central.common.service.ISuperService;
 import com.central.user.model.SysUserExcel;
-import com.central.common.model.Result;
 
 /**
 * @author hzed
@@ -64,7 +63,7 @@ public interface ISysUserService extends ISuperService<SysUser> {
 	 * @param newPassword
 	 * @return
 	 */
-	Result updatePassword(Long id, String oldPassword, String newPassword);
+	CommonResult updatePassword(Long id, String oldPassword, String newPassword);
 
 	/**
 	 * 用户列表
@@ -86,7 +85,7 @@ public interface ISysUserService extends ISuperService<SysUser> {
 	 * @param params
 	 * @return
 	 */
-	Result updateEnabled(Map<String, Object> params);
+	CommonResult updateEnabled(Map<String, Object> params);
 
 	/**
 	 * 查询全部用户

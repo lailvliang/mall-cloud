@@ -38,6 +38,24 @@ public class CommonResult<T> {
     /**
      * 成功返回结果
      *
+     * @param msg 提示信息
+     */
+    public static <T> CommonResult<T> success(String msg) {
+        return new CommonResult<T>(ResultCode.SUCCESS.getCode(), msg, null);
+    }
+
+    /**
+     * 成功返回结果
+     *@param code 提示信息
+     * @param msge 提示信息
+     */
+    public static <T> CommonResult<T> success(Integer code,String msge) {
+        return new CommonResult<T>(code, msge, null);
+    }
+
+    /**
+     * 成功返回结果
+     *
      * @param data 获取的数据
      * @param  message 提示信息
      */
