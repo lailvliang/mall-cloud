@@ -1,9 +1,9 @@
 package com.central.mall.admin.controller;
 
-import com.macro.mall.common.api.CommonResult;
-import com.macro.mall.dto.SmsFlashPromotionSessionDetail;
-import com.macro.mall.model.SmsFlashPromotionSession;
-import com.macro.mall.service.SmsFlashPromotionSessionService;
+import com.central.mall.admin.common.api.CommonResult;
+import com.central.mall.admin.dto.SmsFlashPromotionSessionDetail;
+import com.central.mall.admin.model.SmsFlashPromotionSession;
+import com.central.mall.admin.service.SmsFlashPromotionSessionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

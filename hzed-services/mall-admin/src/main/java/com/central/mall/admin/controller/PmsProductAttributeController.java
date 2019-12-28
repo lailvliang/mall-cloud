@@ -1,11 +1,11 @@
 package com.central.mall.admin.controller;
 
-import com.macro.mall.common.api.CommonPage;
-import com.macro.mall.common.api.CommonResult;
-import com.macro.mall.dto.PmsProductAttributeParam;
-import com.macro.mall.dto.ProductAttrInfo;
-import com.macro.mall.model.PmsProductAttribute;
-import com.macro.mall.service.PmsProductAttributeService;
+import com.central.mall.admin.common.api.CommonPage;
+import com.central.mall.admin.common.api.CommonResult;
+import com.central.mall.admin.dto.PmsProductAttributeParam;
+import com.central.mall.admin.dto.ProductAttrInfo;
+import com.central.mall.admin.model.PmsProductAttribute;
+import com.central.mall.admin.service.PmsProductAttributeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

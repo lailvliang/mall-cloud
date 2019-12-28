@@ -1,11 +1,11 @@
 package com.central.mall.admin.controller;
 
-import com.macro.mall.common.api.CommonPage;
-import com.macro.mall.common.api.CommonResult;
-import com.macro.mall.dto.PmsProductCategoryParam;
-import com.macro.mall.dto.PmsProductCategoryWithChildrenItem;
-import com.macro.mall.model.PmsProductCategory;
-import com.macro.mall.service.PmsProductCategoryService;
+import com.central.mall.admin.common.api.CommonPage;
+import com.central.mall.admin.common.api.CommonResult;
+import com.central.mall.admin.dto.PmsProductCategoryParam;
+import com.central.mall.admin.dto.PmsProductCategoryWithChildrenItem;
+import com.central.mall.admin.model.PmsProductCategory;
+import com.central.mall.admin.service.PmsProductCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

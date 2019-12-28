@@ -1,10 +1,10 @@
 package com.central.mall.admin.controller;
 
-import com.macro.mall.common.api.CommonPage;
-import com.macro.mall.common.api.CommonResult;
-import com.macro.mall.dto.*;
-import com.macro.mall.model.OmsOrder;
-import com.macro.mall.service.OmsOrderService;
+import com.central.mall.admin.common.api.CommonPage;
+import com.central.mall.admin.common.api.CommonResult;
+import com.central.mall.admin.dto.*;
+import com.central.mall.admin.model.OmsOrder;
+import com.central.mall.admin.service.OmsOrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

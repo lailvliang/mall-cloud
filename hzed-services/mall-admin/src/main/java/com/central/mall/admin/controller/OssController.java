@@ -1,10 +1,10 @@
 package com.central.mall.admin.controller;
 
 
-import com.macro.mall.common.api.CommonResult;
-import com.macro.mall.dto.OssCallbackResult;
-import com.macro.mall.dto.OssPolicyResult;
-import com.macro.mall.service.impl.OssServiceImpl;
+import com.central.mall.admin.common.api.CommonResult;
+import com.central.mall.admin.dto.OssCallbackResult;
+import com.central.mall.admin.dto.OssPolicyResult;
+import com.central.mall.admin.service.impl.OssServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

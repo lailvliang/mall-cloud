@@ -20,36 +20,36 @@ public class Result<T> implements Serializable {
 
 
     public static <T> Result<T> succeed() {
-        return succeedWith(null, ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage());
+        return newResultWith(null, ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage());
     }
     public static <T> Result<T> succeedWithMsg(String msg) {
-        return succeedWith(null, ResultCode.SUCCESS.getCode(), msg);
+        return newResultWith(null, ResultCode.SUCCESS.getCode(), msg);
     }
 
     public static <T> Result<T> succeedWithDatasAndMsg(T datas, String msg) {
-        return succeedWith(datas, ResultCode.SUCCESS.getCode(), msg);
+        return newResultWith(datas, ResultCode.SUCCESS.getCode(), msg);
     }
 
     public static <T> Result<T> succeedWithDatas(T datas) {
-        return succeedWith(datas, ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage());
+        return newResultWith(datas, ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMessage());
     }
-
-    private static <T> Result<T> succeedWith(T datas, Integer code, String msg) {
-        return new Result<>(datas, code, msg);
-    }
-
 
 
     public static <T> Result<T> failedWithMsgAndIErrorCode(String msg,IErrorCode error) {
-        return new Result<>(null, error.getCode(), msg);
+        return newResultWith(null, error.getCode(), msg);
     }
 
     public static <T> Result<T> failedWithIErrorCode(IErrorCode error) {
-        return new Result<>(null, error.getCode(), error.getMessage());
+        return newResultWith(null, error.getCode(), error.getMessage());
     }
 
     public static <T> Result<T> failedWithDatasAndIErrorCode(T datas, IErrorCode error) {
-        return new Result<>(datas, error.getCode(), error.getMessage());
+        return newResultWith(datas, error.getCode(), error.getMessage());
+    }
+
+
+    private static <T> Result<T> newResultWith(T datas, Integer code, String msg) {
+        return new Result<>(datas, code, msg);
     }
 
 }

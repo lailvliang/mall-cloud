@@ -1,8 +1,8 @@
 package com.central.mall.admin.controller;
 
-import com.macro.mall.common.api.CommonResult;
-import com.macro.mall.model.UmsMemberLevel;
-import com.macro.mall.service.UmsMemberLevelService;
+import com.central.mall.admin.common.api.CommonResult;
+import com.central.mall.admin.model.UmsMemberLevel;
+import com.central.mall.admin.service.UmsMemberLevelService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

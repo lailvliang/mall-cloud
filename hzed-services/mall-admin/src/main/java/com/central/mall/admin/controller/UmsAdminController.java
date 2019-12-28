@@ -1,14 +1,14 @@
 package com.central.mall.admin.controller;
 
-import com.macro.mall.common.api.CommonPage;
-import com.macro.mall.common.api.CommonResult;
-import com.macro.mall.dto.UmsAdminLoginParam;
-import com.macro.mall.dto.UmsAdminParam;
-import com.macro.mall.dto.UpdateAdminPasswordParam;
-import com.macro.mall.model.UmsAdmin;
-import com.macro.mall.model.UmsPermission;
-import com.macro.mall.model.UmsRole;
-import com.macro.mall.service.UmsAdminService;
+import com.central.mall.admin.common.api.CommonPage;
+import com.central.mall.admin.common.api.CommonResult;
+import com.central.mall.admin.dto.UmsAdminLoginParam;
+import com.central.mall.admin.dto.UmsAdminParam;
+import com.central.mall.admin.dto.UpdateAdminPasswordParam;
+import com.central.mall.admin.model.UmsAdmin;
+import com.central.mall.admin.model.UmsPermission;
+import com.central.mall.admin.model.UmsRole;
+import com.central.mall.admin.service.UmsAdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

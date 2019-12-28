@@ -1,9 +1,9 @@
 package com.central.mall.admin.controller;
 
-import com.macro.mall.common.api.CommonPage;
-import com.macro.mall.common.api.CommonResult;
-import com.macro.mall.model.CmsSubject;
-import com.macro.mall.service.CmsSubjectService;
+import com.central.mall.admin.common.api.CommonPage;
+import com.central.mall.admin.common.api.CommonResult;
+import com.central.mall.admin.model.CmsSubject;
+import com.central.mall.admin.service.CmsSubjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

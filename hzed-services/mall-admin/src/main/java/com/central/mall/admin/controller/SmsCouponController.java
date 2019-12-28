@@ -1,10 +1,10 @@
 package com.central.mall.admin.controller;
 
-import com.macro.mall.common.api.CommonPage;
-import com.macro.mall.common.api.CommonResult;
-import com.macro.mall.dto.SmsCouponParam;
-import com.macro.mall.model.SmsCoupon;
-import com.macro.mall.service.SmsCouponService;
+import com.central.mall.admin.common.api.CommonPage;
+import com.central.mall.admin.common.api.CommonResult;
+import com.central.mall.admin.dto.SmsCouponParam;
+import com.central.mall.admin.model.SmsCoupon;
+import com.central.mall.admin.service.SmsCouponService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
