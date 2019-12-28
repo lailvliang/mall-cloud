@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.macro.mall.mapper.PmsSkuStockMapper">
-  <resultMap id="BaseResultMap" type="com.macro.mall.model.PmsSkuStock">
+<mapper namespace="com.central.mall.admin.mapper.PmsSkuStockMapper">
+  <resultMap id="BaseResultMap" type="com.central.mall.admin.model.PmsSkuStock">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="product_id" jdbcType="BIGINT" property="productId" />
     <result column="sku_code" jdbcType="VARCHAR" property="skuCode" />
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="stock" jdbcType="INTEGER" property="stock" />
     <result column="low_stock" jdbcType="INTEGER" property="lowStock" />
-    <result column="dynamic_pros" jdbcType="VARCHAR" property="dynamicPros" />
     <result column="sp1" jdbcType="VARCHAR" property="sp1" />
     <result column="sp2" jdbcType="VARCHAR" property="sp2" />
     <result column="sp3" jdbcType="VARCHAR" property="sp3" />
@@ -76,10 +75,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, product_id, sku_code, price, stock, low_stock,dynamic_pros, sp1, sp2, sp3, pic, sale, promotion_price,
+    id, product_id, sku_code, price, stock, low_stock, sp1, sp2, sp3, pic, sale, promotion_price, 
     lock_stock
   </sql>
-  <select id="selectByExample" parameterType="com.macro.mall.model.PmsSkuStockExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.central.mall.admin.model.PmsSkuStockExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -103,26 +102,26 @@
     delete from pms_sku_stock
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.macro.mall.model.PmsSkuStockExample">
+  <delete id="deleteByExample" parameterType="com.central.mall.admin.model.PmsSkuStockExample">
     delete from pms_sku_stock
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.macro.mall.model.PmsSkuStock">
+  <insert id="insert" parameterType="com.central.mall.admin.model.PmsSkuStock">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into pms_sku_stock (product_id, sku_code, price, 
-      stock, low_stock,dynamic_pros, sp1,
+      stock, low_stock, sp1, 
       sp2, sp3, pic, sale, 
       promotion_price, lock_stock)
     values (#{productId,jdbcType=BIGINT}, #{skuCode,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
-      #{stock,jdbcType=INTEGER}, #{lowStock,jdbcType=INTEGER}, #{dynamicPros,jdbcType=VARCHAR},#{sp1,jdbcType=VARCHAR},
+      #{stock,jdbcType=INTEGER}, #{lowStock,jdbcType=INTEGER}, #{sp1,jdbcType=VARCHAR}, 
       #{sp2,jdbcType=VARCHAR}, #{sp3,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{sale,jdbcType=INTEGER}, 
       #{promotionPrice,jdbcType=DECIMAL}, #{lockStock,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.macro.mall.model.PmsSkuStock">
+  <insert id="insertSelective" parameterType="com.central.mall.admin.model.PmsSkuStock">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -142,9 +141,6 @@
       </if>
       <if test="lowStock != null">
         low_stock,
-      </if>
-      <if test="dynamicPros != null">
-        dynamic_pros,
       </if>
       <if test="sp1 != null">
         sp1,
@@ -184,9 +180,6 @@
       <if test="lowStock != null">
         #{lowStock,jdbcType=INTEGER},
       </if>
-      <if test="dynamicPros != null">
-        #{dynamicPros,jdbcType=VARCHAR},
-      </if>
       <if test="sp1 != null">
         #{sp1,jdbcType=VARCHAR},
       </if>
@@ -210,7 +203,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.macro.mall.model.PmsSkuStockExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.central.mall.admin.model.PmsSkuStockExample" resultType="java.lang.Long">
     select count(*) from pms_sku_stock
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -236,9 +229,6 @@
       </if>
       <if test="record.lowStock != null">
         low_stock = #{record.lowStock,jdbcType=INTEGER},
-      </if>
-      <if test="record.dynamicPros != null">
-        dynamic_pros = #{record.dynamicPros,jdbcType=VARCHAR},
       </if>
       <if test="record.sp1 != null">
         sp1 = #{record.sp1,jdbcType=VARCHAR},
@@ -274,7 +264,6 @@
       price = #{record.price,jdbcType=DECIMAL},
       stock = #{record.stock,jdbcType=INTEGER},
       low_stock = #{record.lowStock,jdbcType=INTEGER},
-      dynamic_pros = #{record.dynamicPros,jdbcType=VARCHAR},
       sp1 = #{record.sp1,jdbcType=VARCHAR},
       sp2 = #{record.sp2,jdbcType=VARCHAR},
       sp3 = #{record.sp3,jdbcType=VARCHAR},
@@ -286,7 +275,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.macro.mall.model.PmsSkuStock">
+  <update id="updateByPrimaryKeySelective" parameterType="com.central.mall.admin.model.PmsSkuStock">
     update pms_sku_stock
     <set>
       <if test="productId != null">
@@ -303,9 +292,6 @@
       </if>
       <if test="lowStock != null">
         low_stock = #{lowStock,jdbcType=INTEGER},
-      </if>
-      <if test="dynamicPros != null">
-        dynamic_pros = #{dynamicPros,jdbcType=VARCHAR},
       </if>
       <if test="sp1 != null">
         sp1 = #{sp1,jdbcType=VARCHAR},
@@ -331,14 +317,13 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.macro.mall.model.PmsSkuStock">
+  <update id="updateByPrimaryKey" parameterType="com.central.mall.admin.model.PmsSkuStock">
     update pms_sku_stock
     set product_id = #{productId,jdbcType=BIGINT},
       sku_code = #{skuCode,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
       stock = #{stock,jdbcType=INTEGER},
       low_stock = #{lowStock,jdbcType=INTEGER},
-      dynamic_pros = #{dynamicPros,jdbcType=VARCHAR},
       sp1 = #{sp1,jdbcType=VARCHAR},
       sp2 = #{sp2,jdbcType=VARCHAR},
       sp3 = #{sp3,jdbcType=VARCHAR},

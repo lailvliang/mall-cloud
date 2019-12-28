@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.macro.mall.mapper.OmsOrderMapper">
-  <resultMap id="BaseResultMap" type="com.macro.mall.model.OmsOrder">
+<mapper namespace="com.central.mall.admin.mapper.OmsOrderMapper">
+  <resultMap id="BaseResultMap" type="com.central.mall.admin.model.OmsOrder">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="member_id" jdbcType="BIGINT" property="memberId" />
     <result column="coupon_id" jdbcType="BIGINT" property="couponId" />
@@ -46,7 +46,6 @@
     <result column="receive_time" jdbcType="TIMESTAMP" property="receiveTime" />
     <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
-    <result column="pay_period" jdbcType="INTEGER" property="payPeriod" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -115,7 +114,7 @@
     receiver_city, receiver_region, receiver_detail_address, note, confirm_status, delete_status, 
     use_integration, payment_time, delivery_time, receive_time, comment_time, modify_time
   </sql>
-  <select id="selectByExample" parameterType="com.macro.mall.model.OmsOrderExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.central.mall.admin.model.OmsOrderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -139,13 +138,13 @@
     delete from oms_order
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.macro.mall.model.OmsOrderExample">
+  <delete id="deleteByExample" parameterType="com.central.mall.admin.model.OmsOrderExample">
     delete from oms_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.macro.mall.model.OmsOrder">
+  <insert id="insert" parameterType="com.central.mall.admin.model.OmsOrder">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -180,7 +179,7 @@
       #{deliveryTime,jdbcType=TIMESTAMP}, #{receiveTime,jdbcType=TIMESTAMP}, #{commentTime,jdbcType=TIMESTAMP}, 
       #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.macro.mall.model.OmsOrder">
+  <insert id="insertSelective" parameterType="com.central.mall.admin.model.OmsOrder">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -448,7 +447,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.macro.mall.model.OmsOrderExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.central.mall.admin.model.OmsOrderExample" resultType="java.lang.Long">
     select count(*) from oms_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -644,7 +643,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.macro.mall.model.OmsOrder">
+  <update id="updateByPrimaryKeySelective" parameterType="com.central.mall.admin.model.OmsOrder">
     update oms_order
     <set>
       <if test="memberId != null">
@@ -779,7 +778,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.macro.mall.model.OmsOrder">
+  <update id="updateByPrimaryKey" parameterType="com.central.mall.admin.model.OmsOrder">
     update oms_order
     set member_id = #{memberId,jdbcType=BIGINT},
       coupon_id = #{couponId,jdbcType=BIGINT},
@@ -826,12 +825,4 @@
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
-
-  <select id="selectByUserName" parameterType="java.lang.String" resultType="java.util.Map">
-    select
-      o.order_sn orderSn,o.total_amount totalAmount,o.pay_period payPeriod,oi.product_name productName,oi.product_pic productPic
-      ,o.member_username memberUsername
-    from oms_order o INNER JOIN oms_order_item oi on o.id=oi.order_id
-    where o.member_username=#{memberUsername}
-  </select>
 </mapper>

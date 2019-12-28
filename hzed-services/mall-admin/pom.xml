@@ -7,7 +7,7 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>mall-admin</artifactId>
-    <description>系统后台用户中心</description>
+    <description>商城后台中心</description>
     <dependencies>
         <!-- 公共实体类模块 -->
         <dependency>

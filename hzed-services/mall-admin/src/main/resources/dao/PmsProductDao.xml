@@ -1,70 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.macro.mall.dao.PmsProductDao">
-    <resultMap id="updateInfoMap" type="com.macro.mall.dto.PmsProductResult" extends="com.macro.mall.mapper.PmsProductMapper.ResultMapWithBLOBs">
+<mapper namespace="com.central.mall.admin.dao.PmsProductDao">
+    <resultMap id="updateInfoMap" type="com.central.mall.admin.dto.PmsProductResult" extends="com.central.mall.admin.mapper.PmsProductMapper.ResultMapWithBLOBs">
         <result column="cateParentId" jdbcType="BIGINT" property="cateParentId" />
-        <association property="pmsInstalmentPlant" columnPrefix="instalment_" resultMap="com.macro.mall.mapper.PmsInstalmentPlantMapper.BaseResultMap" />
-        <collection property="productLadderList" columnPrefix="ladder_" resultMap="com.macro.mall.mapper.PmsProductLadderMapper.BaseResultMap">
+        <collection property="productLadderList" columnPrefix="ladder_" resultMap="com.central.mall.admin.mapper.PmsProductLadderMapper.BaseResultMap">
         </collection>
-        <collection property="productFullReductionList" columnPrefix="full_" resultMap="com.macro.mall.mapper.PmsProductFullReductionMapper.BaseResultMap">
+        <collection property="productFullReductionList" columnPrefix="full_" resultMap="com.central.mall.admin.mapper.PmsProductFullReductionMapper.BaseResultMap">
         </collection>
-        <collection property="memberPriceList" columnPrefix="member_" resultMap="com.macro.mall.mapper.PmsMemberPriceMapper.BaseResultMap">
+        <collection property="memberPriceList" columnPrefix="member_" resultMap="com.central.mall.admin.mapper.PmsMemberPriceMapper.BaseResultMap">
         </collection>
-        <collection property="skuStockList" columnPrefix="sku_" resultMap="com.macro.mall.mapper.PmsSkuStockMapper.BaseResultMap">
+        <collection property="skuStockList" columnPrefix="sku_" resultMap="com.central.mall.admin.mapper.PmsSkuStockMapper.BaseResultMap">
         </collection>
-        <collection property="productAttributeValueList" columnPrefix="attribute_" resultMap="com.macro.mall.mapper.PmsProductAttributeValueMapper.BaseResultMap">
+        <collection property="productAttributeValueList" columnPrefix="attribute_" resultMap="com.central.mall.admin.mapper.PmsProductAttributeValueMapper.BaseResultMap">
         </collection>
         <collection property="subjectProductRelationList" column="{productId=id}" select="selectSubjectProductRelationByProductId"/>
         <collection property="prefrenceAreaProductRelationList" column="{productId=id}" select="selectPrefrenceAreaProductRelationByProductId"/>
-    </resultMap>
 
-    <resultMap id="promotionProductMap" type="com.macro.mall.domain.PromotionProduct" extends="com.macro.mall.mapper.PmsProductMapper.BaseResultMap">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="ch_category_id" jdbcType="BIGINT" property="chCategoryId" />
-        <result column="pa_category_id" jdbcType="BIGINT" property="paCategoryId" />
-        <result column="ch_category_name" jdbcType="VARCHAR" property="chCategoryName" />
-        <result column="pa_category_name" jdbcType="VARCHAR" property="paCategoryName" />
-        <collection property="skuStockList" columnPrefix="sku_" resultMap="com.macro.mall.mapper.PmsSkuStockMapper.BaseResultMap">
-        </collection>
-        <collection property="productLadderList" columnPrefix="ladder_" resultMap="com.macro.mall.mapper.PmsProductLadderMapper.BaseResultMap">
-        </collection>
-        <collection property="productFullReductionList" columnPrefix="full_" resultMap="com.macro.mall.mapper.PmsProductFullReductionMapper.BaseResultMap">
-        </collection>
-    </resultMap>
-
-    <resultMap id="cartProductMap" type="com.macro.mall.domain.CartProduct" autoMapping="true">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <collection property="productAttributeList" columnPrefix="attr_" resultMap="com.macro.mall.mapper.PmsProductAttributeMapper.BaseResultMap">
-        </collection>
-        <collection property="skuStockList" columnPrefix="sku_" resultMap="com.macro.mall.mapper.PmsSkuStockMapper.BaseResultMap">
-        </collection>
-    </resultMap>
-
-    <resultMap id="productDetailMap" type="com.macro.mall.dto.PortalProductDetail">
-        <result column="id" jdbcType="BIGINT" property="id" />
-        <result column="name" jdbcType="VARCHAR" property="name" />
-        <result column="new_status" jdbcType="INTEGER" property="newStatus" />
-        <result column="price" jdbcType="DECIMAL" property="price" />
-        <result column="sub_title" jdbcType="VARCHAR" property="subTitle" />
-        <result column="stock" jdbcType="INTEGER" property="stock" />
-        <result column="album_pics" jdbcType="VARCHAR" property="albumPics" />
-        <result column="detail_mobile_html" jdbcType="VARCHAR" property="detailMobileHtml" />
-        <result column="pay_periods" jdbcType="VARCHAR" property="payPeriods" />
-    </resultMap>
-
-    <resultMap id="portalProductDetailMap" type="com.macro.mall.dto.PortalProductDetail" extends="productDetailMap">
-        <collection property="skuProductsList" columnPrefix="sku_" resultMap="com.macro.mall.dao.PmsSkuStockDao.skuProductsMap" ></collection>
-        <collection property="productAttributeList" column="{productId=id}" select="com.macro.mall.dao.PmsProductAttributeValueDao.portalGetProAttri"/>
-    </resultMap>
-
-    <resultMap id="portalHomeProductDetailMap" type="com.macro.mall.dto.PortalHomeProductDetail" extends="productDetailMap">
-        <result column="ch_category_id" jdbcType="BIGINT" property="chCategoryId" />
-        <result column="pa_category_id" jdbcType="BIGINT" property="paCategoryId" />
-        <result column="ch_category_name" jdbcType="VARCHAR" property="chCategoryName" />
-        <result column="pa_category_name" jdbcType="VARCHAR" property="paCategoryName" />
-        <result column="pic" jdbcType="VARCHAR" property="pic" />
-        <collection property="skuProduct" column="{productId=id}" select="com.macro.mall.dao.PmsSkuStockDao.getMinSkuProductByProductId"></collection>
-        <collection property="productAttributeList" column="{productId=id}" select="com.macro.mall.dao.PmsProductAttributeValueDao.portalGetProAttri"/>
     </resultMap>
 
     <select id="getUpdateInfo" resultMap="updateInfoMap">
@@ -73,9 +24,8 @@
             l.id ladder_id,l.product_id ladder_product_id,l.discount ladder_discount,l.count ladder_count,l.price ladder_price,
             pf.id full_id,pf.product_id full_product_id,pf.full_price full_full_price,pf.reduce_price full_reduce_price,
             m.id member_id,m.product_id member_product_id,m.member_level_id member_member_level_id,m.member_price member_member_price,m.member_level_name member_member_level_name,
-            s.id sku_id,s.product_id sku_product_id,s.price sku_price,s.low_stock sku_low_stock,s.pic sku_pic,s.sale sku_sale,s.sku_code sku_sku_code,s.dynamic_pros sku_dynamic_pros ,s.sp1 sku_sp1,s.sp2 sku_sp2,s.sp3 sku_sp3,s.stock sku_stock,
-            a.id attribute_id,a.product_id attribute_product_id,a.product_attribute_id attribute_product_attribute_id,a.value attribute_value,
-            ins.product_id instalment_product_id, ins.pay_periods instalment_pay_periods
+            s.id sku_id,s.product_id sku_product_id,s.price sku_price,s.low_stock sku_low_stock,s.pic sku_pic,s.sale sku_sale,s.sku_code sku_sku_code,s.sp1 sku_sp1,s.sp2 sku_sp2,s.sp3 sku_sp3,s.stock sku_stock,
+            a.id attribute_id,a.product_id attribute_product_id,a.product_attribute_id attribute_product_attribute_id,a.value attribute_value
         FROM pms_product p
         LEFT JOIN pms_product_category pc on pc.id = p.product_category_id
         LEFT JOIN pms_product_ladder l ON p.id = l.product_id
@@ -83,173 +33,13 @@
         LEFT JOIN pms_member_price m ON m.product_id = p.id
         LEFT JOIN pms_sku_stock s ON s.product_id = p.id
         LEFT JOIN pms_product_attribute_value a ON a.product_id=p.id
-        LEFT JOIN pms_instalment_plant ins on ins.product_id=p.id
         WHERE p.id=#{id};
     </select>
-    <select id="selectSubjectProductRelationByProductId" resultMap="com.macro.mall.mapper.CmsSubjectProductRelationMapper.BaseResultMap">
+    <select id="selectSubjectProductRelationByProductId" resultMap="com.central.mall.admin.mapper.CmsSubjectProductRelationMapper.BaseResultMap">
         select * from cms_subject_product_relation where product_id=#{productId}
     </select>
-    <select id="selectPrefrenceAreaProductRelationByProductId" resultMap="com.macro.mall.mapper.CmsPrefrenceAreaProductRelationMapper.BaseResultMap">
+    <select id="selectPrefrenceAreaProductRelationByProductId" resultMap="com.central.mall.admin.mapper.CmsPrefrenceAreaProductRelationMapper.BaseResultMap">
         select * from cms_prefrence_area_product_relation where product_id=#{productId}
     </select>
 
-
-    <select id="getCartProduct" resultMap="cartProductMap">
-        SELECT
-            p.id id,
-            p.`name` name,
-            p.sub_title subTitle,
-            p.price price,
-            p.pic pic,
-            p.product_attribute_category_id productAttributeCategoryId,
-            p.product_category_id productCategoryId,
-            p.stock stock,
-            p.brand_name brandName,
-            p.product_sn  productSn,
-            pa.id attr_id,
-            pa.`name` attr_name,
-            ps.id sku_id,
-            ps.sku_code sku_code,
-            ps.price sku_price,
-            ps.sp1 sku_sp1,
-            ps.sp2 sku_sp2,
-            ps.sp3 sku_sp3,
-            ps.stock sku_stock,
-            ps.pic sku_pic
-        FROM
-            pms_product p
-            LEFT JOIN pms_product_attribute pa ON p.product_attribute_category_id = pa.product_attribute_category_id
-            LEFT JOIN pms_sku_stock ps ON p.id=ps.product_id
-        WHERE
-            p.id = #{id}
-            AND pa.type = 0
-        ORDER BY pa.sort desc
-    </select>
-
-    <select id="getHotProductListTopThree" resultMap="portalHomeProductDetailMap">
-        SELECT
-        p.id,p.pic,p.`name`,p.album_pics,p.new_status,p.sub_title,p.stock,p.price,p.detail_mobile_html,p.sort,ins.pay_periods,p.promotion_start_time,
-        p.product_category_id productCategoryId,p.sale,
-        c3.id AS ch_category_id,
-        c3.`name` ch_category_name,
-        c4.`name` pa_category_name,
-        c4.id AS pa_category_id
-        FROM
-        pms_product p
-        LEFT JOIN pms_product_category c3 ON p.product_category_id = c3.id
-        LEFT JOIN pms_product_category c4 ON c3.parent_id = c4.id
-        LEFT JOIN pms_instalment_plant ins ON p.id = ins.product_id
-        WHERE
-        p.delete_status = 0 AND p.publish_status = 1 AND p.recommand_status = 1
---         AND p.verify_status = 1
-        GROUP BY p.id
-        ORDER BY p.sort DESC,p.sale DESC ,p.promotion_start_time DESC LIMIT 0,3
-    </select>
-
-    <select id="getCategoryProductList" resultMap="portalHomeProductDetailMap">
-        SELECT
-        detail.*
-        FROM
-        (
-        SELECT
-        product.*,
-        IF (
-        @tmp = product.productCategoryId ,@rank :=@rank + 1 ,@rank := 1
-        ) AS new_rank,
-        @tmp := product.productCategoryId AS tmp
-        FROM
-        (
-        SELECT
-        RAND() AS r,
-        p.id,p.pic,p.`name`,p.album_pics,p.new_status,p.sub_title,p.stock,p.price,p.detail_mobile_html,p.sort,ins.pay_periods,
-        p.product_category_id productCategoryId,
-        c3.id AS ch_category_id,
-        c3.`name` ch_category_name,
-        c4.`name` pa_category_name,
-        c4.id AS pa_category_id
-        FROM
-        (
-        SELECT
-        *
-        FROM
-        pms_product
-        WHERE
-        product_category_id IN (
-        SELECT
-        category.child_id
-        FROM
-        (
-        SELECT
-        t.*
-        FROM
-        (
-        SELECT
-        a.*,
-        IF (
-        @tmp = a.id ,@rank :=@rank + 1 ,@rank := 1
-        ) AS new_rank,
-        @tmp := a.id AS tmp
-        FROM
-        (
-        SELECT
-        c1.sort AS pSort,
-        c1.id,
-        c1.`NAME`,
-        c2.id child_id,
-        c2.`NAME` child_name,
-        c2.sort
-        FROM
-        (
-        SELECT
-        *
-        FROM
-        pms_product_category
-        WHERE
-        parent_id = 0
-        ORDER BY
-        sort DESC
-        LIMIT 0,
-        3
-        ) c1
-        LEFT JOIN pms_product_category c2 ON c1.id = c2.parent_id
-        ORDER BY
-        pSort DESC,
-        sort DESC
-        ) a
-        ORDER BY
-        a.pSort DESC,
-        a.sort DESC
-        ) t
-        WHERE
-        t.new_rank <![CDATA[<= ]]> 3
-        ) category
-        )
-        ) p
-        LEFT JOIN pms_product_category c3 ON p.product_category_id = c3.id
-        LEFT JOIN pms_product_category c4 ON c3.parent_id = c4.id
-        LEFT JOIN pms_instalment_plant ins ON p.id = ins.product_id
-         WHERE
-        p.delete_status = 0 AND p.publish_status = 1
---         AND p.verify_status = 1
-        GROUP BY
-        id
-        ORDER BY
-        sort DESC,
-        r DESC
-        ) product
-        ORDER BY
-        pa_category_id DESC, productCategoryId DESC
-        ) detail
-        WHERE
-        new_rank <![CDATA[<= ]]> 6;
-    </select>
-
-    <select id="getPortalProductDetail" resultMap="portalProductDetailMap">
-        SELECT p.id,p.`name`,p.album_pics,p.new_status,p.sub_title,p.stock,p.price,p.detail_mobile_html,ins.pay_periods,
-            s.id sku_id,s.sku_code sku_sku_code,s.price sku_price,s.stock sku_stock,s.pic sku_pic,s.dynamic_pros sku_dynamic_pros
-        FROM pms_product p
-            LEFT JOIN pms_sku_stock s ON s.product_id = p.id
-            LEFT JOIN pms_instalment_plant ins on ins.product_id=p.id
-        WHERE p.id=#{id};
-    </select>
 </mapper>
