@@ -92,7 +92,7 @@
         layer.load(2);
         admin.req('api-uaa/clients/all', {}, function (data) {
             layer.closeAll('loading');
-            if (0 === data.resp_code) {
+            if (200 === data.code) {
                 let selected = false;
                 $.each(data.datas,function(index,item){
                     if (config.clientId === item.clientId) {
@@ -105,7 +105,7 @@
                 })
                 form.render();
             } else {
-                layer.msg(data.resp_msg, {icon: 2, time: 500});
+                layer.msg(data.msg, {icon: 2, time: 500});
             }
         }, 'GET');
 
@@ -121,12 +121,12 @@
             admin.req('api-user/roles/saveOrUpdate?tenantId='+tenantId, JSON.stringify(data.field), function (data) {
                 layer.closeAll('loading');
                 console.log(data);
-                if (data.resp_code === 0) {
-                    layer.msg(data.resp_msg, {icon: 1, time: 500});
+                if (data.code === 200) {
+                    layer.msg(data.msg, {icon: 1, time: 500});
                     table.reload('role-table');
                     layer.closeAll('page');
                 } else {
-                    layer.msg(data.resp_msg, {icon: 2, time: 500});
+                    layer.msg(data.msg, {icon: 2, time: 500});
                 }
             }, $('#role-form').attr('method'));
             return false;
@@ -180,11 +180,11 @@
                 layer.load(2);
                 admin.req('api-user/roles/' + obj.data.id+'?tenantId='+tenantId, {}, function (data) {
                     layer.closeAll('loading');
-                    if (data.resp_code === 0) {
-                        layer.msg(data.resp_msg, {icon: 1, time: 500});
+                    if (data.code === 200) {
+                        layer.msg(data.msg, {icon: 1, time: 500});
                         obj.del();
                     } else {
-                        layer.msg(data.resp_msg, {icon: 2, time: 500});
+                        layer.msg(data.msg, {icon: 2, time: 500});
                     }
                 }, 'DELETE');
             });
@@ -234,10 +234,10 @@
                     admin.req('api-user/menus/granted?tenantId='+tenantId, JSON.stringify(data) , function (data) {
                         layer.closeAll('loading');
                         if (0 == data.resp_code) {
-                            layer.msg(data.resp_msg, {icon: 1, time: 500});
+                            layer.msg(data.msg, {icon: 1, time: 500});
                             layer.close(index);
                         } else {
-                            layer.msg(data.resp_msg, {icon: 2, time: 500});
+                            layer.msg(data.msg, {icon: 2, time: 500});
                         }
                     }, 'POST');
                 }

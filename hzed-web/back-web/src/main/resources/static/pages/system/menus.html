@@ -85,7 +85,7 @@
         layer.load(2);
         admin.req('api-uaa/clients/all', {}, function (data) {
             layer.closeAll('loading');
-            if (0 === data.resp_code) {
+            if (200 === data.code) {
                 let selected = false;
                 $.each(data.datas,function(index,item){
                     if (config.clientId === item.clientId) {
@@ -98,7 +98,7 @@
                 })
                 form.render();
             } else {
-                layer.msg(data.resp_msg, {icon: 2, time: 500});
+                layer.msg(data.msg, {icon: 2, time: 500});
             }
         }, 'GET');
 
@@ -115,11 +115,11 @@
                     let tenantId = $('#menu_clients').val();
                     admin.req('api-user/menus/'+obj.data.id+'?tenantId='+tenantId, {}, function (data) {
                         layer.closeAll('loading');
-                        if (0 === data.resp_code) {
-                            layer.msg(data.resp_msg, {icon: 1, time: 500});
+                        if (200 === data.code) {
+                            layer.msg(data.msg, {icon: 1, time: 500});
                             renderTable({tenantId: tenantId});
                         } else {
-                            layer.msg(data.resp_msg, {icon: 2, time: 500});
+                            layer.msg(data.msg, {icon: 2, time: 500});
                         }
                     }, 'DELETE');
                 });

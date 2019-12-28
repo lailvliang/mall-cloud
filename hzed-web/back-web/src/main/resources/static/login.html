@@ -94,20 +94,20 @@
                 },
                 success: function (data) {
                     //console.log(JSON.stringify(data));
-                    if (data.resp_code === 0) {
+                    if (data.code === 200) {
                         config.putToken(data.datas);
                         layer.msg('登录成功', {icon: 1, time: 500}, function () {
                             location.replace('./');
                         });
                     } else {
                         layer.closeAll('loading');
-                        layer.msg(data.resp_msg, {icon: 5, time: 500});
+                        layer.msg(data.msg, {icon: 5, time: 500});
                     }
                 },
                 error: function (xhr) {
                     //console.log(xhr)
                     layer.closeAll('loading');
-                    layer.msg(xhr.responseJSON.resp_msg, {icon: 5, time: 500});
+                    layer.msg(xhr.responseJSON.msg, {icon: 5, time: 500});
                 }
             });
             //阻止表单跳转

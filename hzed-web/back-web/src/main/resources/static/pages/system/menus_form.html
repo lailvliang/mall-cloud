@@ -121,13 +121,13 @@
         form.on('submit(menus-form-submit)', function (data) {
             layer.load(2);
             admin.req('api-user/menus/saveOrUpdate?tenantId='+menus.tenantId, JSON.stringify(data.field), function (data) {
-                if (data.resp_code === 0) {
+                if (data.code === 200) {
                 	layer.closeAll('loading');
-                    layer.msg(data.resp_msg, {icon: 1, time: 500});
+                    layer.msg(data.msg, {icon: 1, time: 500});
                     admin.finishPopupCenter();
                 } else {
                 	layer.closeAll('loading');
-                    layer.msg(data.resp_msg, {icon: 2, time: 500});
+                    layer.msg(data.msg, {icon: 2, time: 500});
                 }
             }, $('#menus-form').attr('method'));
             return false;

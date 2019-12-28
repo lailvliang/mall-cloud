@@ -58,7 +58,7 @@
 
         admin.req('api-user/users/current', {}, function (data) {
             // 回显user数据
-            if (data && data.resp_code === 0) {
+            if (data && data.code === 200) {
                 let user = data.datas;
                 user.sex = user.sex.toString();
                 form.val('user-form', user);
@@ -70,14 +70,14 @@
         form.on('submit(user-form-submit)', function (data) {
             layer.load(2);
             admin.req('api-user/users/saveOrUpdate', JSON.stringify(data.field), function (data) {
-                if (data.resp_code == 0) {
+                if (data.code == 200) {
                     layer.closeAll('loading');
                     $(".layui-nav-img").attr("src",$("[name=headImgUrl]").val());
                     layer.msg("操作成功", {icon: 1, time: 500});
 
                     form.val('user-form',data.datas);
                 } else {
-                    layer.msg(data.resp_msg, {icon: 2, time: 500});
+                    layer.msg(data.msg, {icon: 2, time: 500});
                 }
             }, 'POST');
             return false;

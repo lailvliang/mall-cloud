@@ -80,7 +80,7 @@ public class ResponseUtil {
         ServerHttpResponse response = exchange.getResponse();
         response.getHeaders().setAccessControlAllowCredentials(true);
         response.getHeaders().setAccessControlAllowOrigin("*");
-        response.setStatusCode(HttpStatus.valueOf(String.valueOf(result.getCode())));
+        response.setStatusCode(HttpStatus.valueOf(result.getCode()));
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON_UTF8);
         DataBufferFactory dataBufferFactory = response.bufferFactory();
         DataBuffer buffer = dataBufferFactory.wrap(JSONObject.toJSONString(result).getBytes(Charset.defaultCharset()));

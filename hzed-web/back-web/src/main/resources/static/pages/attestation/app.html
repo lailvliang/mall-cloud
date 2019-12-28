@@ -155,12 +155,12 @@
             admin.req('api-uaa/clients/saveOrUpdate', JSON.stringify(data.field), function (data) {
                 layer.closeAll('loading');
                 console.log(data);
-                if (data.resp_code == 0) {
-                    layer.msg(data.resp_msg, {icon: 1, time: 500});
+                if (data.code == 200) {
+                    layer.msg(data.msg, {icon: 1, time: 500});
                     table.reload('app-table');
                     layer.closeAll('page');
                 } else {
-                    layer.msg(data.resp_msg, {icon: 2, time: 500});
+                    layer.msg(data.msg, {icon: 2, time: 500});
                 }
             }, $('#app-form').attr('method'));
             return false;

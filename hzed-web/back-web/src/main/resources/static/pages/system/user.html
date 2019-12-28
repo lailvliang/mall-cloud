@@ -98,10 +98,10 @@
                     layer.load(2);
                     admin.req('api-user/users/'+obj.data.id+'/password', {}, function (data) {
                         layer.closeAll('loading');
-                        if (data.resp_code == 0) {
-                            layer.msg(data.resp_msg, {icon: 1, time: 500});
+                        if (data.code == 200) {
+                            layer.msg(data.msg, {icon: 1, time: 500});
                         } else {
-                            layer.msg(data.resp_msg, {icon: 2, time: 500});
+                            layer.msg(data.msg, {icon: 2, time: 500});
                         }
                     }, 'PUT');
                 });
@@ -111,11 +111,11 @@
                     layer.load(2);
                     admin.req('api-user/users/'+obj.data.id, {}, function (data) {
                         layer.closeAll('loading');
-                        if (data.resp_code == 0) {
-                            layer.msg(data.resp_msg, {icon: 1, time: 500});
+                        if (data.code == 200) {
+                            layer.msg(data.msg, {icon: 1, time: 500});
                             table.reload('user-table', {});
                         } else {
-                            layer.msg(data.resp_msg, {icon: 2, time: 500});
+                            layer.msg(data.msg, {icon: 2, time: 500});
                         }
                     }, 'delete');
                 });
@@ -181,11 +181,11 @@
                 enabled: obj.elem.checked ? true : false
             }, function (data) {
                 layer.closeAll('loading');
-                if (data.resp_code == 0) {
-                    layer.msg(data.resp_msg, {icon: 1, time: 500});
+                if (data.code == 200) {
+                    layer.msg(data.msg, {icon: 1, time: 500});
                     //table.reload('table-user', {});
                 } else {
-                    layer.msg(data.resp_msg, {icon: 2, time: 500});
+                    layer.msg(data.msg, {icon: 2, time: 500});
                     $(obj.elem).prop('checked', !obj.elem.checked);
                     form.render('checkbox');
                 }
@@ -201,11 +201,11 @@
             ,multiple: false
             ,headers: {"Authorization" : "Bearer " + config.getToken().access_token}
             ,done: function(data){
-                if (data.resp_code == 0) {
-                    layer.msg(data.resp_msg, {icon: 1, time: 500});
+                if (data.code == 200) {
+                    layer.msg(data.msg, {icon: 1, time: 500});
                     table.reload('user-table', {});
                 } else {
-                    layer.msg(data.resp_msg, {icon: 2, time: 500});
+                    layer.msg(data.msg, {icon: 2, time: 500});
                 }
             }
         });

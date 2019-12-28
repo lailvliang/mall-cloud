@@ -190,7 +190,7 @@ layui.define(['config', 'admin', 'layer', 'laytpl', 'element', 'form'], function
             layer.load(2);
             admin.req('api-user/users/current', {}, function (data) {
                 layer.closeAll('loading');
-                if (data && data.resp_code === 0) {
+                if (data && data.code === 200) {
                     let user = data.datas;
                     config.putUser(user);
                     admin.putTempData("permissions",user.permissions);
