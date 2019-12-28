@@ -3,6 +3,7 @@ package com.central.file.controller;
 import java.util.Map;
 
 import com.central.common.model.Result;
+import com.central.common.model.ResultCode;
 import com.central.file.service.IFileService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,9 +50,9 @@ public class FileController {
     public Result delete(@PathVariable String id) {
         try {
             fileService.delete(id);
-            return Result.succeed("操作成功");
+            return Result.succeed();
         } catch (Exception ex) {
-            return Result.failed("操作失败");
+            return Result.failedWithIErrorCode(ResultCode.FAILED);
         }
     }
 

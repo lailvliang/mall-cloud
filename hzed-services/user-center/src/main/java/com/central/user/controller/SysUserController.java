@@ -63,7 +63,7 @@ public class SysUserController {
     @ApiOperation(value = "根据access_token当前登录用户")
     @GetMapping("/users/current")
     public Result<LoginAppUser> getLoginAppUser(@LoginUser(isFull = true) SysUser user) {
-        return Result.succeed(appUserService.getLoginAppUser(user));
+        return Result.succeedWithDatas(appUserService.getLoginAppUser(user));
     }
 
     /**
@@ -176,7 +176,7 @@ public class SysUserController {
     public Result updateEnabled(@RequestParam Map<String, Object> params) {
         Long id = MapUtils.getLong(params, "id");
         if (checkAdmin(id)) {
-            return Result.failed(ADMIN_CHANGE_MSG);
+            return Result.failedWithMsgAndIErrorCode(ADMIN_CHANGE_MSG,ResultCode.FAILED);
         }
         return appUserService.updateEnabled(params);
     }
@@ -189,10 +189,10 @@ public class SysUserController {
     @PutMapping(value = "/users/{id}/password")
     public Result resetPassword(@PathVariable Long id) {
         if (checkAdmin(id)) {
-            return Result.failed(ADMIN_CHANGE_MSG);
+            return Result.failedWithMsgAndIErrorCode(ADMIN_CHANGE_MSG,ResultCode.FAILED);
         }
         appUserService.updatePassword(id, null, null);
-        return Result.succeed("重置成功");
+        return Result.succeedWithMsg("重置成功");
     }
 
     /**
@@ -201,10 +201,10 @@ public class SysUserController {
     @PutMapping(value = "/users/password")
     public Result resetPassword(@RequestBody SysUser sysUser) {
         if (checkAdmin(sysUser.getId())) {
-            return Result.failed(ADMIN_CHANGE_MSG);
+            return Result.failedWithMsgAndIErrorCode(ADMIN_CHANGE_MSG,ResultCode.FAILED);
         }
         appUserService.updatePassword(sysUser.getId(), sysUser.getOldPassword(), sysUser.getNewPassword());
-        return Result.succeed("重置成功");
+        return Result.succeedWithMsg("重置成功");
     }
 
     /**
@@ -215,10 +215,10 @@ public class SysUserController {
     @DeleteMapping(value = "/users/{id}")
     public Result delete(@PathVariable Long id) {
         if (checkAdmin(id)) {
-            return Result.failed(ADMIN_CHANGE_MSG);
+            return Result.failedWithMsgAndIErrorCode(ADMIN_CHANGE_MSG,ResultCode.FAILED);
         }
         appUserService.delUser(id);
-        return Result.succeed("删除成功");
+        return Result.succeedWithMsg("删除成功");
     }
 
 
@@ -264,7 +264,7 @@ public class SysUserController {
                 appUserService.saveBatch(users);
             }
         }
-        return Result.succeed("导入数据成功，一共【"+rowNum+"】行");
+        return Result.succeedWithMsg("导入数据成功，一共【"+rowNum+"】行");
     }
 
     @ApiOperation(value = "用户全文搜索列表")

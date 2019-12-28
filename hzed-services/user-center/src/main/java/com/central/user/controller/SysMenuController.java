@@ -65,10 +65,10 @@ public class SysMenuController {
     public Result delete(@PathVariable Long id) {
         try {
             menuService.removeById(id);
-            return Result.succeed("操作成功");
+            return Result.succeed();
         } catch (Exception ex) {
             log.error("memu-delete-error", ex);
-            return Result.failed("操作失败");
+            return Result.failedWithIErrorCode(ResultCode.FAILED);
         }
     }
 
@@ -120,7 +120,7 @@ public class SysMenuController {
     @PostMapping("/granted")
     public Result setMenuToRole(@RequestBody SysMenu sysMenu) {
         menuService.setMenuToRole(sysMenu.getRoleId(), sysMenu.getMenuIds());
-        return Result.succeed("操作成功");
+        return Result.succeed();
     }
 
     @ApiOperation(value = "查询所有菜单")
@@ -148,10 +148,10 @@ public class SysMenuController {
     public Result saveOrUpdate(@RequestBody SysMenu menu) {
         try {
             menuService.saveOrUpdate(menu);
-            return Result.succeed("操作成功");
+            return Result.succeed();
         } catch (Exception ex) {
             log.error("memu-saveOrUpdate-error", ex);
-            return Result.failed("操作失败");
+            return Result.failedWithIErrorCode(ResultCode.FAILED);
         }
     }
 

@@ -2,6 +2,7 @@ package com.central.user.controller;
 
 import java.util.Map;
 
+import com.central.common.model.ResultCode;
 import com.central.user.service.ISysRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,13 +65,13 @@ public class SysRoleController {
     public Result deleteRole(@PathVariable Long id) {
         try {
             if (id == 1L) {
-                return Result.failed("管理员不可以删除");
+                return Result.failedWithMsgAndIErrorCode("管理员不可以删除", ResultCode.FAILED);
             }
             sysRoleService.deleteRole(id);
-            return Result.succeed("操作成功");
+            return Result.succeed();
         } catch (Exception e) {
             log.error("role-deleteRole-error", e);
-            return Result.failed("操作失败");
+            return Result.failedWithIErrorCode(ResultCode.FAILED);
         }
     }
 }
