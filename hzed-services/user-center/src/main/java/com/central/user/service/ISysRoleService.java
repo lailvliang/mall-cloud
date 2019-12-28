@@ -2,8 +2,8 @@ package com.central.user.service;
 
 import java.util.Map;
 
+import com.central.common.model.CommonResult;
 import com.central.common.model.PageResult;
-import com.central.common.model.Result;
 import com.central.common.model.SysRole;
 import com.central.common.service.ISuperService;
 
@@ -27,5 +27,5 @@ public interface ISysRoleService extends ISuperService<SysRole> {
 	 * @param sysRole
 	 * @return Result
 	 */
-	Result saveOrUpdateRole(SysRole sysRole);
+	CommonResult saveOrUpdateRole(SysRole sysRole);
 }

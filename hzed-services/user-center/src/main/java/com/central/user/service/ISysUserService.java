@@ -4,13 +4,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.central.common.model.*;
 import com.central.common.service.ISuperService;
 import com.central.user.model.SysUserExcel;
-import com.central.common.model.PageResult;
 import com.central.common.model.Result;
-import com.central.common.model.LoginAppUser;
-import com.central.common.model.SysRole;
-import com.central.common.model.SysUser;
 
 /**
 * @author hzed
@@ -98,7 +95,7 @@ public interface ISysUserService extends ISuperService<SysUser> {
 	 */
 	List<SysUserExcel> findAllUsers(Map<String, Object> params);
 
-	Result saveOrUpdateUser(SysUser sysUser);
+	CommonResult saveOrUpdateUser(SysUser sysUser);
 
 	/**
 	 * 删除用户

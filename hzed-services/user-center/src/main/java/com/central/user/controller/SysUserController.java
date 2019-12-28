@@ -62,8 +62,8 @@ public class SysUserController {
      */
     @ApiOperation(value = "根据access_token当前登录用户")
     @GetMapping("/users/current")
-    public Result<LoginAppUser> getLoginAppUser(@LoginUser(isFull = true) SysUser user) {
-        return Result.succeedWithDatas(appUserService.getLoginAppUser(user));
+    public CommonResult<LoginAppUser> getLoginAppUser(@LoginUser(isFull = true) SysUser user) {
+        return CommonResult.success(appUserService.getLoginAppUser(user));
     }
 
     /**
@@ -187,24 +187,24 @@ public class SysUserController {
      * @param id
      */
     @PutMapping(value = "/users/{id}/password")
-    public Result resetPassword(@PathVariable Long id) {
+    public CommonResult resetPassword(@PathVariable Long id) {
         if (checkAdmin(id)) {
-            return Result.failedWithMsgAndIErrorCode(ADMIN_CHANGE_MSG,ResultCode.FAILED);
+            return CommonResult.failed(ADMIN_CHANGE_MSG);
         }
         appUserService.updatePassword(id, null, null);
-        return Result.succeedWithMsg("重置成功");
+        return CommonResult.success("重置成功");
     }
 
     /**
      * 用户自己修改密码
      */
     @PutMapping(value = "/users/password")
-    public Result resetPassword(@RequestBody SysUser sysUser) {
+    public CommonResult resetPassword(@RequestBody SysUser sysUser) {
         if (checkAdmin(sysUser.getId())) {
-            return Result.failedWithMsgAndIErrorCode(ADMIN_CHANGE_MSG,ResultCode.FAILED);
+            return CommonResult.failed(ADMIN_CHANGE_MSG);
         }
         appUserService.updatePassword(sysUser.getId(), sysUser.getOldPassword(), sysUser.getNewPassword());
-        return Result.succeedWithMsg("重置成功");
+        return CommonResult.success("重置成功");
     }
 
     /**
@@ -213,12 +213,12 @@ public class SysUserController {
      * @param id
      */
     @DeleteMapping(value = "/users/{id}")
-    public Result delete(@PathVariable Long id) {
+    public CommonResult delete(@PathVariable Long id) {
         if (checkAdmin(id)) {
-            return Result.failedWithMsgAndIErrorCode(ADMIN_CHANGE_MSG,ResultCode.FAILED);
+            return CommonResult.failed(ADMIN_CHANGE_MSG);
         }
         appUserService.delUser(id);
-        return Result.succeedWithMsg("删除成功");
+        return CommonResult.success("删除成功");
     }
 
 
@@ -230,7 +230,7 @@ public class SysUserController {
      */
     @CacheEvict(value = "user", key = "#sysUser.username")
     @PostMapping("/users/saveOrUpdate")
-    public Result saveOrUpdate(@RequestBody SysUser sysUser) {
+    public CommonResult saveOrUpdate(@RequestBody SysUser sysUser) {
         return appUserService.saveOrUpdateUser(sysUser);
     }
 

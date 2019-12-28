@@ -2,7 +2,7 @@ package com.central.user.controller;
 
 import java.util.Map;
 
-import com.central.common.model.ResultCode;
+import com.central.common.model.CommonResult;
 import com.central.user.service.ISysRoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.central.common.model.PageResult;
-import com.central.common.model.Result;
 import com.central.common.model.SysRole;
 
 import io.swagger.annotations.Api;
@@ -50,7 +49,7 @@ public class SysRoleController {
      * @return
      */
     @PostMapping("/roles/saveOrUpdate")
-    public Result saveOrUpdate(@RequestBody SysRole sysRole) {
+    public CommonResult saveOrUpdate(@RequestBody SysRole sysRole) {
         return sysRoleService.saveOrUpdateRole(sysRole);
     }
 
@@ -62,16 +61,16 @@ public class SysRoleController {
      */
     @ApiOperation(value = "后台管理删除角色")
     @DeleteMapping("/roles/{id}")
-    public Result deleteRole(@PathVariable Long id) {
+    public CommonResult deleteRole(@PathVariable Long id) {
         try {
             if (id == 1L) {
-                return Result.failedWithMsgAndIErrorCode("管理员不可以删除", ResultCode.FAILED);
+                return CommonResult.failed("管理员不可以删除");
             }
             sysRoleService.deleteRole(id);
-            return Result.succeed();
+            return CommonResult.success();
         } catch (Exception e) {
             log.error("role-deleteRole-error", e);
-            return Result.failedWithIErrorCode(ResultCode.FAILED);
+            return CommonResult.failed();
         }
     }
 }

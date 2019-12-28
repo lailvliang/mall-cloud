@@ -5,8 +5,8 @@ import java.util.Map;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.central.common.model.CommonResult;
 import com.central.common.model.PageResult;
-import com.central.common.model.Result;
 import com.central.common.model.SysRole;
 import com.central.user.service.ISysRoleService;
 import com.central.common.constant.CommonConstant;
@@ -69,12 +69,12 @@ public class SysRoleServiceImpl extends SuperServiceImpl<SysRoleMapper, SysRole>
 
     @Override
     @Transactional
-    public Result saveOrUpdateRole(SysRole sysRole) {
+    public CommonResult saveOrUpdateRole(SysRole sysRole) {
         if (sysRole.getId() == null) {
             this.saveRole(sysRole);
         } else {
             baseMapper.updateById(sysRole);
         }
-        return Result.succeed("操作成功");
+        return CommonResult.success();
     }
 }
