@@ -1,7 +1,7 @@
 package com.central.mall.admin.controller;
 
-import com.central.mall.admin.common.api.CommonPage;
-import com.central.mall.admin.common.api.CommonResult;
+import com.central.common.model.CommonResult;
+import com.central.common.model.PageResult;
 import com.central.mall.admin.model.CmsSubject;
 import com.central.mall.admin.service.CmsSubjectService;
 import io.swagger.annotations.Api;
@@ -37,7 +37,7 @@ public class CmsSubjectController {
     @ApiOperation(value = "根据专题名称分页获取专题")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<CmsSubject>> getList(@RequestParam(value = "keyword", required = false) String keyword,
+    public CommonResult<PageResult<CmsSubject>> getList(@RequestParam(value = "keyword", required = false) String keyword,
                                                         @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
         List<CmsSubject> subjectList = subjectService.list(keyword, pageNum, pageSize);

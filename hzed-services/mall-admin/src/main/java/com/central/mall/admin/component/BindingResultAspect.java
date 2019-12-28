@@ -1,7 +1,6 @@
 package com.central.mall.admin.component;
 
-import com.central.common.model.Result;
-import com.central.common.model.ResultCode;
+import com.central.common.model.CommonResult;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -32,9 +31,9 @@ public class BindingResultAspect {
                 if (result.hasErrors()) {
                     FieldError fieldError = result.getFieldError();
                     if(fieldError!=null){
-                        return Result.failedWithMsgAndIErrorCode(fieldError.getDefaultMessage(), ResultCode.VALIDATE_FAILED);
+                        return CommonResult.validateFailed(fieldError.getDefaultMessage());
                     }else{
-                        return Result.failedWithIErrorCode(ResultCode.VALIDATE_FAILED);
+                        return CommonResult.validateFailed();
                     }
                 }
             }

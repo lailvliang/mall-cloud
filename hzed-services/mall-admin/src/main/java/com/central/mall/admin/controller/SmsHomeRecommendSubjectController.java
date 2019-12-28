@@ -1,7 +1,7 @@
 package com.central.mall.admin.controller;
 
-import com.central.mall.admin.common.api.CommonPage;
-import com.central.mall.admin.common.api.CommonResult;
+import com.central.common.model.CommonPage;
+import com.central.common.model.CommonResult;
 import com.central.mall.admin.model.SmsHomeRecommendSubject;
 import com.central.mall.admin.service.SmsHomeRecommendSubjectService;
 import io.swagger.annotations.Api;
