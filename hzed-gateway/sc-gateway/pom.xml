@@ -17,6 +17,12 @@
         <dependency>
             <groupId>com.hzed</groupId>
             <artifactId>hzed-ribbon-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mybatis-spring-boot-starter</artifactId>
+                    <groupId>org.mybatis.spring.boot</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.hzed</groupId>
