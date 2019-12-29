@@ -1,6 +1,6 @@
 package com.central.mall.admin.controller;
 
-import com.central.common.model.CommonPage;
+import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.model.OmsOrderReturnReason;
 import com.central.mall.admin.service.OmsOrderReturnReasonService;
@@ -59,10 +59,10 @@ public class OmsOrderReturnReasonController {
     @ApiOperation("分页查询全部退货原因")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<OmsOrderReturnReason>> list(@RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+    public CommonResult<PageResult<OmsOrderReturnReason>> list(@RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<OmsOrderReturnReason> reasonList = orderReturnReasonService.list(pageSize, pageNum);
-        return CommonResult.success(CommonPage.restPage(reasonList));
+        return CommonResult.success(PageResult.restPage(reasonList));
     }
 
     @ApiOperation("获取单个退货原因详情信息")

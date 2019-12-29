@@ -1,6 +1,7 @@
 package com.central.mall.admin.controller;
 
 import com.central.common.model.CommonResult;
+import com.central.common.model.PageResult;
 import com.central.mall.admin.dto.*;
 import com.central.mall.admin.model.OmsOrder;
 import com.central.mall.admin.service.OmsOrderService;
@@ -26,11 +27,11 @@ public class OmsOrderController {
     @ApiOperation("查询订单")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<OmsOrder>> list(OmsOrderQueryParam queryParam,
+    public CommonResult<PageResult<OmsOrder>> list(OmsOrderQueryParam queryParam,
                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                    @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<OmsOrder> orderList = orderService.list(queryParam, pageSize, pageNum);
-        return CommonResult.success(CommonPage.restPage(orderList));
+        return CommonResult.success(PageResult.restPage(orderList));
     }
 
     @ApiOperation("批量发货")

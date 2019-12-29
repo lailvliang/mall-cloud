@@ -1,6 +1,6 @@
 package com.central.mall.admin.controller;
 
-import com.central.common.model.CommonPage;
+import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.model.SmsFlashPromotion;
 import com.central.mall.admin.service.SmsFlashPromotionService;
@@ -82,6 +82,6 @@ public class SmsFlashPromotionController {
                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                           @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<SmsFlashPromotion> flashPromotionList = flashPromotionService.list(keyword, pageSize, pageNum);
-        return CommonResult.success(CommonPage.restPage(flashPromotionList));
+        return CommonResult.success(PageResult.restPage(flashPromotionList));
     }
 }

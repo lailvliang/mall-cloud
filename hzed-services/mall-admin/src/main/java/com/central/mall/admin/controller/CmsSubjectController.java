@@ -41,6 +41,6 @@ public class CmsSubjectController {
                                                         @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
         List<CmsSubject> subjectList = subjectService.list(keyword, pageNum, pageSize);
-        return CommonResult.success(CommonPage.restPage(subjectList));
+        return CommonResult.success(PageResult.restPage(subjectList));
     }
 }

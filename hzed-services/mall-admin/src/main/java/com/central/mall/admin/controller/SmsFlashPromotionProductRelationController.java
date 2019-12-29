@@ -1,6 +1,6 @@
 package com.central.mall.admin.controller;
 
-import com.central.common.model.CommonPage;
+import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.dto.SmsFlashPromotionProduct;
 import com.central.mall.admin.model.SmsFlashPromotionProductRelation;
@@ -68,11 +68,11 @@ public class SmsFlashPromotionProductRelationController {
     @ApiOperation("分页查询不同场次关联及商品信息")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<SmsFlashPromotionProduct>> list(@RequestParam(value = "flashPromotionId") Long flashPromotionId,
+    public CommonResult<PageResult<SmsFlashPromotionProduct>> list(@RequestParam(value = "flashPromotionId") Long flashPromotionId,
                                                                    @RequestParam(value = "flashPromotionSessionId") Long flashPromotionSessionId,
                                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                                    @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<SmsFlashPromotionProduct> flashPromotionProductList = relationService.list(flashPromotionId, flashPromotionSessionId, pageSize, pageNum);
-        return CommonResult.success(CommonPage.restPage(flashPromotionProductList));
+        return CommonResult.success(PageResult.restPage(flashPromotionProductList));
     }
 }

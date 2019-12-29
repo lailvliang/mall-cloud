@@ -1,6 +1,6 @@
 package com.central.mall.admin.dto;
 
-import com.macro.mall.model.SmsFlashPromotionSession;
+import com.central.mall.admin.model.SmsFlashPromotionSession;
 import lombok.Getter;
 import lombok.Setter;
 

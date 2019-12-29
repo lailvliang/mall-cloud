@@ -1,6 +1,6 @@
 package com.central.mall.admin.controller;
 
-import com.central.common.model.CommonPage;
+import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.dto.PmsProductAttributeParam;
 import com.central.mall.admin.dto.ProductAttrInfo;
@@ -32,12 +32,12 @@ public class PmsProductAttributeController {
     @ApiImplicitParams({@ApiImplicitParam(name = "type", value = "0表示属性，1表示参数", required = true, paramType = "query", dataType = "integer")})
     @RequestMapping(value = "/list/{cid}", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<PmsProductAttribute>> getList(@PathVariable Long cid,
+    public CommonResult<PageResult<PmsProductAttribute>> getList(@PathVariable Long cid,
                                                                  @RequestParam(value = "type") Integer type,
                                                                  @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                                  @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<PmsProductAttribute> productAttributeList = productAttributeService.getList(cid, type, pageSize, pageNum);
-        return CommonResult.success(CommonPage.restPage(productAttributeList));
+        return CommonResult.success(PageResult.restPage(productAttributeList));
     }
 
     @ApiOperation("添加商品属性信息")

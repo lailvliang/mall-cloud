@@ -1,6 +1,6 @@
 package com.central.mall.admin.controller;
 
-import com.central.common.model.CommonPage;
+import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.dto.UmsAdminLoginParam;
 import com.central.mall.admin.dto.UmsAdminParam;
@@ -101,11 +101,11 @@ public class UmsAdminController {
     @ApiOperation("根据用户名或姓名分页获取用户列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<UmsAdmin>> list(@RequestParam(value = "name", required = false) String name,
+    public CommonResult<PageResult<UmsAdmin>> list(@RequestParam(value = "name", required = false) String name,
                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                    @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<UmsAdmin> adminList = adminService.list(name, pageSize, pageNum);
-        return CommonResult.success(CommonPage.restPage(adminList));
+        return CommonResult.success(PageResult.restPage(adminList));
     }
 
     @ApiOperation("获取指定用户信息")

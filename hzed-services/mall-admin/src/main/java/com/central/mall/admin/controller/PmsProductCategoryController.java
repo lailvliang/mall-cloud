@@ -1,6 +1,6 @@
 package com.central.mall.admin.controller;
 
-import com.central.common.model.CommonPage;
+import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.dto.PmsProductCategoryParam;
 import com.central.mall.admin.dto.PmsProductCategoryWithChildrenItem;
@@ -62,11 +62,11 @@ public class PmsProductCategoryController {
     @RequestMapping(value = "/list/{parentId}", method = RequestMethod.GET)
     @ResponseBody
     @PreAuthorize("hasAuthority('pms:productCategory:read')")
-    public CommonResult<CommonPage<PmsProductCategory>> getList(@PathVariable Long parentId,
+    public CommonResult<PageResult<PmsProductCategory>> getList(@PathVariable Long parentId,
                                                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                                 @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<PmsProductCategory> productCategoryList = productCategoryService.getList(parentId, pageSize, pageNum);
-        return CommonResult.success(CommonPage.restPage(productCategoryList));
+        return CommonResult.success(PageResult.restPage(productCategoryList));
     }
 
     @ApiOperation("根据id获取商品分类")

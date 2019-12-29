@@ -1,8 +1,9 @@
 package com.central.mall.admin.dto;
 
-import com.macro.mall.model.OmsOrder;
-import com.macro.mall.model.OmsOrderItem;
-import com.macro.mall.model.OmsOrderOperateHistory;
+
+import com.central.mall.admin.model.OmsOrder;
+import com.central.mall.admin.model.OmsOrderItem;
+import com.central.mall.admin.model.OmsOrderOperateHistory;
 import lombok.Getter;
 import lombok.Setter;
 

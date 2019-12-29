@@ -2,6 +2,7 @@ package com.central.mall.admin.controller;
 
 
 import com.central.common.model.CommonResult;
+import com.central.common.model.PageResult;
 import com.central.mall.admin.model.SmsHomeBrand;
 import com.central.mall.admin.service.SmsHomeBrandService;
 import io.swagger.annotations.Api;
@@ -70,11 +71,11 @@ public class SmsHomeBrandController {
     @ApiOperation("分页查询推荐品牌")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<SmsHomeBrand>> list(@RequestParam(value = "brandName", required = false) String brandName,
+    public CommonResult<PageResult<SmsHomeBrand>> list(@RequestParam(value = "brandName", required = false) String brandName,
                                                        @RequestParam(value = "recommendStatus", required = false) Integer recommendStatus,
                                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                        @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<SmsHomeBrand> homeBrandList = homeBrandService.list(brandName, recommendStatus, pageSize, pageNum);
-        return CommonResult.success(CommonPage.restPage(homeBrandList));
+        return CommonResult.success(PageResult.restPage(homeBrandList));
     }
 }

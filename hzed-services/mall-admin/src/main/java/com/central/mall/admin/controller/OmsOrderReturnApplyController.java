@@ -1,6 +1,6 @@
 package com.central.mall.admin.controller;
 
-import com.central.common.model.CommonPage;
+import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.dto.OmsOrderReturnApplyResult;
 import com.central.mall.admin.dto.OmsReturnApplyQueryParam;
@@ -29,11 +29,11 @@ public class OmsOrderReturnApplyController {
     @ApiOperation("分页查询退货申请")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<OmsOrderReturnApply>> list(OmsReturnApplyQueryParam queryParam,
+    public CommonResult<PageResult<OmsOrderReturnApply>> list(OmsReturnApplyQueryParam queryParam,
                                                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                               @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<OmsOrderReturnApply> returnApplyList = returnApplyService.list(queryParam, pageSize, pageNum);
-        return CommonResult.success(CommonPage.restPage(returnApplyList));
+        return CommonResult.success(PageResult.restPage(returnApplyList));
     }
 
     @ApiOperation("批量删除申请")

@@ -1,6 +1,6 @@
 package com.central.mall.admin.dto;
 
-import com.macro.mall.model.*;
+import com.central.mall.admin.model.*;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;

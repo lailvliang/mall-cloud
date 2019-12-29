@@ -1,6 +1,6 @@
 package com.central.mall.admin.controller;
 
-import com.central.common.model.CommonPage;
+import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.dto.PmsProductAttributeCategoryItem;
 import com.central.mall.admin.model.PmsProductAttributeCategory;
@@ -71,9 +71,9 @@ public class PmsProductAttributeCategoryController {
     @ApiOperation("分页获取所有商品属性分类")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<PmsProductAttributeCategory>> getList(@RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum) {
+    public CommonResult<PageResult<PmsProductAttributeCategory>> getList(@RequestParam(defaultValue = "5") Integer pageSize, @RequestParam(defaultValue = "1") Integer pageNum) {
         List<PmsProductAttributeCategory> productAttributeCategoryList = productAttributeCategoryService.getList(pageSize, pageNum);
-        return CommonResult.success(CommonPage.restPage(productAttributeCategoryList));
+        return CommonResult.success(PageResult.restPage(productAttributeCategoryList));
     }
 
     @ApiOperation("获取所有商品属性分类及其下属性")

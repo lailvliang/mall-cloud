@@ -1,6 +1,6 @@
 package com.central.mall.admin.dto;
 
-import com.macro.mall.validator.FlagValidator;
+import com.central.mall.admin.validator.FlagValidator;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotEmpty;

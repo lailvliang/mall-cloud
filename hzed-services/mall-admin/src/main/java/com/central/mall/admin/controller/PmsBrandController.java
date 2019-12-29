@@ -1,6 +1,6 @@
 package com.central.mall.admin.controller;
 
-import com.central.common.model.CommonPage;
+import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.dto.PmsBrandParam;
 import com.central.mall.admin.model.PmsBrand;
@@ -84,11 +84,11 @@ public class PmsBrandController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     @PreAuthorize("hasAuthority('pms:brand:read')")
-    public CommonResult<CommonPage<PmsBrand>> getList(@RequestParam(value = "keyword", required = false) String keyword,
+    public CommonResult<PageResult<PmsBrand>> getList(@RequestParam(value = "keyword", required = false) String keyword,
                                                       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
         List<PmsBrand> brandList = brandService.listBrand(keyword, pageNum, pageSize);
-        return CommonResult.success(CommonPage.restPage(brandList));
+        return CommonResult.success(PageResult.restPage(brandList));
     }
 
     @ApiOperation(value = "根据编号查询品牌信息")

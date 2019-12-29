@@ -1,6 +1,6 @@
 package com.central.mall.admin.controller;
 
-import com.central.common.model.CommonPage;
+import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.dto.SmsCouponParam;
 import com.central.mall.admin.model.SmsCoupon;
@@ -59,13 +59,13 @@ public class SmsCouponController {
     @ApiOperation("根据优惠券名称和类型分页获取优惠券列表")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<SmsCoupon>> list(
+    public CommonResult<PageResult<SmsCoupon>> list(
             @RequestParam(value = "name",required = false) String name,
             @RequestParam(value = "type",required = false) Integer type,
             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<SmsCoupon> couponList = couponService.list(name,type,pageSize,pageNum);
-        return CommonResult.success(CommonPage.restPage(couponList));
+        return CommonResult.success(PageResult.restPage(couponList));
     }
 
     @ApiOperation("获取单个优惠券的详细信息")

@@ -1,6 +1,6 @@
 package com.central.mall.admin.controller;
 
-import com.central.common.model.CommonPage;
+import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.dto.PmsProductParam;
 import com.central.mall.admin.dto.PmsProductQueryParam;
@@ -67,11 +67,11 @@ public class PmsProductController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     @PreAuthorize("hasAuthority('pms:product:read')")
-    public CommonResult<CommonPage<PmsProduct>> getList(PmsProductQueryParam productQueryParam,
+    public CommonResult<PageResult<PmsProduct>> getList(PmsProductQueryParam productQueryParam,
                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                         @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<PmsProduct> productList = productService.list(productQueryParam, pageSize, pageNum);
-        return CommonResult.success(CommonPage.restPage(productList));
+        return CommonResult.success(PageResult.restPage(productList));
     }
 
     @ApiOperation("根据商品名称或货号模糊查询")

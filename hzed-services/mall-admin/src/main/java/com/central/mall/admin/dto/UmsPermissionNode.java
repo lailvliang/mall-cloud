@@ -1,6 +1,6 @@
 package com.central.mall.admin.dto;
 
-import com.macro.mall.model.UmsPermission;
+import com.central.mall.admin.model.UmsPermission;
 import lombok.Getter;
 import lombok.Setter;
 

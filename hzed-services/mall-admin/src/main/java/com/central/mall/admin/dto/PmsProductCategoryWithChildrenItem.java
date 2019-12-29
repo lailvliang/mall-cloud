@@ -1,6 +1,6 @@
 package com.central.mall.admin.dto;
 
-import com.macro.mall.model.PmsProductCategory;
+import com.central.mall.admin.model.PmsProductCategory;
 
 import java.util.List;
 

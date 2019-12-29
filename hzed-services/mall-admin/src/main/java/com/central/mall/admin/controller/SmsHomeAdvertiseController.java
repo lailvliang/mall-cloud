@@ -1,6 +1,6 @@
 package com.central.mall.admin.controller;
 
-import com.central.common.model.CommonPage;
+import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.model.SmsHomeAdvertise;
 import com.central.mall.admin.service.SmsHomeAdvertiseService;
@@ -74,12 +74,12 @@ public class SmsHomeAdvertiseController {
     @ApiOperation("分页查询广告")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<CommonPage<SmsHomeAdvertise>> list(@RequestParam(value = "name", required = false) String name,
+    public CommonResult<PageResult<SmsHomeAdvertise>> list(@RequestParam(value = "name", required = false) String name,
                                                            @RequestParam(value = "type", required = false) Integer type,
                                                            @RequestParam(value = "endTime", required = false) String endTime,
                                                            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                                            @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
         List<SmsHomeAdvertise> advertiseList = advertiseService.list(name, type, endTime, pageSize, pageNum);
-        return CommonResult.success(CommonPage.restPage(advertiseList));
+        return CommonResult.success(PageResult.restPage(advertiseList));
     }
 }

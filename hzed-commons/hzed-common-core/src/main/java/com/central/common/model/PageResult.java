@@ -3,6 +3,7 @@ package com.central.common.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,4 +32,16 @@ public class PageResult<T> implements Serializable {
      * 当前页结果集
      */
     private List<T> data;
+
+    private int totalPage;
+
+
+    public static <T> PageResult<T> restPage(List<T> list) {
+        PageResult<T> result = new PageResult<T>();
+        PageInfo<T> pageInfo = new PageInfo<T>(list);
+        result.setTotalPage(pageInfo.getPages());
+        result.setCount(pageInfo.getTotal());
+        result.setData(pageInfo.getList());
+        return result;
+    }
 }
