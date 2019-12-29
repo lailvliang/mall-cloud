@@ -23,18 +23,18 @@ import java.util.Date;
 public class OssServiceImpl implements OssService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(OssServiceImpl.class);
-	@Value("${aliyun.oss.policy.expire}")
-	private int ALIYUN_OSS_EXPIRE;
-	@Value("${aliyun.oss.maxSize}")
-	private int ALIYUN_OSS_MAX_SIZE;
-	@Value("${aliyun.oss.callback}")
-	private String ALIYUN_OSS_CALLBACK;
-	@Value("${aliyun.oss.bucketName}")
-	private String ALIYUN_OSS_BUCKET_NAME;
-	@Value("${aliyun.oss.endpoint}")
-	private String ALIYUN_OSS_ENDPOINT;
-	@Value("${aliyun.oss.dir.prefix}")
-	private String ALIYUN_OSS_DIR_PREFIX;
+//	@Value("${aliyun.oss.policy.expire}")
+//	private int ALIYUN_OSS_EXPIRE;
+//	@Value("${aliyun.oss.maxSize}")
+//	private int ALIYUN_OSS_MAX_SIZE;
+//	@Value("${aliyun.oss.callback}")
+//	private String ALIYUN_OSS_CALLBACK;
+//	@Value("${aliyun.oss.bucketName}")
+//	private String ALIYUN_OSS_BUCKET_NAME;
+//	@Value("${aliyun.oss.endpoint}")
+//	private String ALIYUN_OSS_ENDPOINT;
+//	@Value("${aliyun.oss.dir.prefix}")
+//	private String ALIYUN_OSS_DIR_PREFIX;
 
 //	@Autowired
 //	private OSSClient ossClient;
@@ -86,7 +86,7 @@ public class OssServiceImpl implements OssService {
 	public OssCallbackResult callback(HttpServletRequest request) {
 		OssCallbackResult result= new OssCallbackResult();
 		String filename = request.getParameter("filename");
-		filename = "http://".concat(ALIYUN_OSS_BUCKET_NAME).concat(".").concat(ALIYUN_OSS_ENDPOINT).concat("/").concat(filename);
+//		filename = "http://".concat(ALIYUN_OSS_BUCKET_NAME).concat(".").concat(ALIYUN_OSS_ENDPOINT).concat("/").concat(filename);
 		result.setFilename(filename);
 		result.setSize(request.getParameter("size"));
 		result.setMimeType(request.getParameter("mimeType"));

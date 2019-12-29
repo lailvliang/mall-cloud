@@ -48,8 +48,8 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UmsAdminServiceImpl.class);
 //    @Autowired
 //    private JwtTokenUtil jwtTokenUtil;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
     @Autowired
     private UmsAdminMapper adminMapper;
     @Autowired
@@ -88,7 +88,8 @@ public class UmsAdminServiceImpl implements UmsAdminService {
             return null;
         }
         //将密码进行加密操作
-        String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
+        String encodePassword = null;
+//        String encodePassword = passwordEncoder.encode(umsAdmin.getPassword());
         umsAdmin.setPassword(encodePassword);
         adminMapper.insert(umsAdmin);
         return umsAdmin;
@@ -258,10 +259,10 @@ public class UmsAdminServiceImpl implements UmsAdminService {
             return -2;
         }
         UmsAdmin umsAdmin = adminList.get(0);
-        if(!passwordEncoder.matches(param.getOldPassword(),umsAdmin.getPassword())){
-            return -3;
-        }
-        umsAdmin.setPassword(passwordEncoder.encode(param.getNewPassword()));
+//        if(!passwordEncoder.matches(param.getOldPassword(),umsAdmin.getPassword())){
+//            return -3;
+//        }
+//        umsAdmin.setPassword(passwordEncoder.encode(param.getNewPassword()));
         adminMapper.updateByPrimaryKey(umsAdmin);
         return 1;
     }

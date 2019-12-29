@@ -33,10 +33,10 @@ import java.util.Map;
 public class UmsAdminController {
     @Autowired
     private UmsAdminService adminService;
-    @Value("${jwt.tokenHeader}")
-    private String tokenHeader;
-    @Value("${jwt.tokenHead}")
-    private String tokenHead;
+//    @Value("${jwt.tokenHeader}")
+//    private String tokenHeader;
+//    @Value("${jwt.tokenHead}")
+//    private String tokenHead;
 
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -59,7 +59,7 @@ public class UmsAdminController {
         }
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
-        tokenMap.put("tokenHead", tokenHead);
+//        tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
     }
 
@@ -67,14 +67,14 @@ public class UmsAdminController {
     @RequestMapping(value = "/refreshToken", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult refreshToken(HttpServletRequest request) {
-        String token = request.getHeader(tokenHeader);
-        String refreshToken = adminService.refreshToken(token);
-        if (refreshToken == null) {
-            return CommonResult.failed("token已经过期！");
-        }
+//        String token = request.getHeader(tokenHeader);
+//        String refreshToken = adminService.refreshToken(token);
+//        if (refreshToken == null) {
+//            return CommonResult.failed("token已经过期！");
+//        }
         Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", refreshToken);
-        tokenMap.put("tokenHead", tokenHead);
+//        tokenMap.put("token", refreshToken);
+//        tokenMap.put("tokenHead", tokenHead);
         return CommonResult.success(tokenMap);
     }
 
