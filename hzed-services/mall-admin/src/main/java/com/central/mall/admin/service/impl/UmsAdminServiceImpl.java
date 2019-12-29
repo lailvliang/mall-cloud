@@ -3,7 +3,6 @@ package com.central.mall.admin.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.PageHelper;
-import com.central.mall.admin.bo.AdminUserDetails;
 import com.central.mall.admin.dao.UmsAdminPermissionRelationDao;
 import com.central.mall.admin.dao.UmsAdminRoleRelationDao;
 import com.central.mall.admin.dto.UmsAdminParam;
@@ -13,7 +12,6 @@ import com.central.mall.admin.mapper.UmsAdminMapper;
 import com.central.mall.admin.mapper.UmsAdminPermissionRelationMapper;
 import com.central.mall.admin.mapper.UmsAdminRoleRelationMapper;
 import com.central.mall.admin.model.*;
-import com.central.mall.admin.security.util.JwtTokenUtil;
 import com.central.mall.admin.service.UmsAdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,6 +34,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,8 +46,8 @@ import java.util.stream.Collectors;
 @Service
 public class UmsAdminServiceImpl implements UmsAdminService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UmsAdminServiceImpl.class);
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
+//    @Autowired
+//    private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -97,19 +98,19 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     public String login(String username, String password) {
         String token = null;
         //密码需要客户端加密后传递
-        try {
-            UserDetails userDetails = loadUserByUsername(username);
-            if(!passwordEncoder.matches(password,userDetails.getPassword())){
-                throw new BadCredentialsException("密码不正确");
-            }
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            token = jwtTokenUtil.generateToken(userDetails);
-//            updateLoginTimeByUsername(username);
-            insertLoginLog(username);
-        } catch (AuthenticationException e) {
-            LOGGER.warn("登录异常:{}", e.getMessage());
-        }
+//        try {
+//            UserDetails userDetails = loadUserByUsername(username);
+//            if(!passwordEncoder.matches(password,userDetails.getPassword())){
+//                throw new BadCredentialsException("密码不正确");
+//            }
+//            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//            token = jwtTokenUtil.generateToken(userDetails);
+////            updateLoginTimeByUsername(username);
+//            insertLoginLog(username);
+//        } catch (AuthenticationException e) {
+//            LOGGER.warn("登录异常:{}", e.getMessage());
+//        }
         return token;
     }
 
@@ -141,7 +142,8 @@ public class UmsAdminServiceImpl implements UmsAdminService {
 
     @Override
     public String refreshToken(String oldToken) {
-        return jwtTokenUtil.refreshHeadToken(oldToken);
+//        return jwtTokenUtil.refreshHeadToken(oldToken);
+        return null;
     }
 
     @Override
@@ -270,7 +272,48 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         UmsAdmin admin = getAdminByUsername(username);
         if (admin != null) {
             List<UmsPermission> permissionList = getPermissionList(admin.getId());
-            return new AdminUserDetails(admin,permissionList);
+//            return new AdminUserDetails(admin,permissionList);
+            return new UserDetails(){
+
+                @Override
+                public Collection<? extends GrantedAuthority> getAuthorities() {
+                    //返回当前用户的权限
+                    return permissionList.stream()
+                            .filter(permission -> permission.getValue()!=null)
+                            .map(permission ->new SimpleGrantedAuthority(permission.getValue()))
+                            .collect(Collectors.toList());
+                }
+
+                @Override
+                public String getPassword() {
+                    return admin.getPassword();
+                }
+
+                @Override
+                public String getUsername() {
+                    return admin.getUsername();
+                }
+
+                @Override
+                public boolean isAccountNonExpired() {
+                    return true;
+                }
+
+                @Override
+                public boolean isAccountNonLocked() {
+                    return true;
+                }
+
+                @Override
+                public boolean isCredentialsNonExpired() {
+                    return true;
+                }
+
+                @Override
+                public boolean isEnabled() {
+                    return admin.getStatus().equals(1);
+                }
+            };
         }
         throw new UsernameNotFoundException("用户名或密码错误");
     }
