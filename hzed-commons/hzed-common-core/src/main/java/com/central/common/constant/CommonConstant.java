@@ -22,7 +22,7 @@ public interface CommonConstant {
      */
     String ACCESS_TOKEN = "access_token";
 
-    String BEARER_TYPE = "Bearer ";
+    String BEARER_TYPE = "Bearer";
 
     /**
      * 标签 header key
