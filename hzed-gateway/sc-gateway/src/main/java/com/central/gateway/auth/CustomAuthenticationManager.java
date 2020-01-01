@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 /**
  * @author hzed
  * @date 2019/10/6
- * <p>
+ * <p>CustomAuthenticationManager->Oauth2AuthSuccessHandler->PermissionAuthManager
  * Blog: https://blog.csdn.net/hzed2000
  * Github: https://github.com/hzed2000
  */

@@ -3,6 +3,8 @@ package com.central.oauth.service;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import javax.management.ServiceNotFoundException;
+
 /**
  * @author hzed
  * @date 2018/12/28
@@ -15,4 +17,6 @@ public interface HzedUserDetailsService extends UserDetailsService {
      * @return
      */
     UserDetails loadUserByMobile(String mobile);
+
+    UserDetails loadUserByUserName(String userName,int type);
 }

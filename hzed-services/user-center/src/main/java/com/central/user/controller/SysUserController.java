@@ -284,6 +284,6 @@ public class SysUserController {
      * 是否超级管理员
      */
     private boolean checkAdmin(long id) {
-        return id == 1L;
+        return id == 2L;
     }
 }

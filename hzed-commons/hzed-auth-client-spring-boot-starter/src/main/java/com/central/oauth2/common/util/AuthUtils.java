@@ -51,8 +51,8 @@ public class AuthUtils {
         Enumeration<String> headers = request.getHeaders(CommonConstant.TOKEN_HEADER);
         while (headers.hasMoreElements()) {
             String value = headers.nextElement();
-            if ((value.toLowerCase().startsWith(OAuth2AccessToken.BEARER_TYPE))) {
-                String authHeaderValue = value.substring(OAuth2AccessToken.BEARER_TYPE.length()).trim();
+            if ((value.startsWith(CommonConstant.BEARER_TYPE))) {
+                String authHeaderValue = value.substring(CommonConstant.BEARER_TYPE.length()).trim();
                 int commaIndex = authHeaderValue.indexOf(',');
                 if (commaIndex > 0) {
                     authHeaderValue = authHeaderValue.substring(0, commaIndex);

@@ -14,7 +14,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 /**
- * 认证成功处理类
+ * 认证成功处理类  调用内部微服务添加请求头信息
  *
  * @author hzed
  * @date 2019/10/7

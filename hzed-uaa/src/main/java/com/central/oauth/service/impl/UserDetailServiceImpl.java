@@ -1,5 +1,7 @@
 package com.central.oauth.service.impl;
 
+import com.central.common.constant.ServiceEnum;
+import com.central.common.exception.ServiceNotFoundException;
 import com.central.common.feign.UserService;
 import com.central.oauth.service.HzedUserDetailsService;
 import org.springframework.security.authentication.DisabledException;
@@ -42,6 +44,17 @@ public class UserDetailServiceImpl implements HzedUserDetailsService, SocialUser
     @Override
     public UserDetails loadUserByMobile(String mobile) {
         LoginAppUser loginAppUser = userService.findByMobile(mobile);
+        return checkUser(loginAppUser);
+    }
+
+    @Override
+    public UserDetails loadUserByUserName(String userName, int type)  {
+        LoginAppUser loginAppUser = null;
+        if(type == 1){
+            loginAppUser = userService.findByUsername(userName);
+        }else{
+            loginAppUser = userService.findByUsername(userName);
+        }
         return checkUser(loginAppUser);
     }
 
