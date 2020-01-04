@@ -1,5 +1,6 @@
 package com.central.common.config;
 
+import com.central.common.feign.UserCenterService;
 import com.central.common.feign.UserService;
 import com.central.common.resolver.ClientArgumentResolver;
 import com.central.common.resolver.TokenArgumentResolver;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 默认SpringMVC拦截器
@@ -20,7 +22,7 @@ import java.util.List;
 public class DefaultWebMvcConfig extends WebMvcConfigurationSupport {
 	@Lazy
 	@Autowired
-	private UserService userService;
+	private Map<String, UserService> userServices;
 
 	/**
 	 * Token参数解析
@@ -30,7 +32,7 @@ public class DefaultWebMvcConfig extends WebMvcConfigurationSupport {
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 		//注入用户信息
-		argumentResolvers.add(new TokenArgumentResolver(userService));
+		argumentResolvers.add(new TokenArgumentResolver(userServices));
 		//注入应用信息
 		argumentResolvers.add(new ClientArgumentResolver());
 	}

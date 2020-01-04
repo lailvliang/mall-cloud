@@ -17,7 +17,7 @@ public interface IValidateCodeService {
      */
     void saveImageCode(String deviceId, String imageCode);
 
-    CommonResult sendSmsCode(String mobile);
+    CommonResult sendSmsCode(String mobile,String serveceName);
 
     /**
      * 获取验证码

@@ -1,26 +1,24 @@
 package com.central.common.constant;
 
-import com.central.common.feign.UserService;
+import com.central.common.exception.ServiceNotFoundException;
+import com.central.common.feign.MallUserService;
+import com.central.common.feign.UserCenterService;
 
 /**
- * 权限常量
+ * 服务枚举
  *
  * @author hzed
  * @date 2018/7/24 16:05
  */
 public enum ServiceEnum {
     /**
-     * MALL_ADMIN服务
-     */
-    MALL_ADMIN(1, UserService.class),
-    /**
      * 普通用户
      */
-    USER(2,UserService.class),
+    MALL_ADMIN(0, MallUserService.class),
     /**
-     * 匿名用户
+     * MALL_ADMIN服务
      */
-    FILE(3,UserService.class);
+    USER_CENTER(1, UserCenterService.class);
 
     private int type ;
     private Class serviceClass;
@@ -40,6 +38,6 @@ public enum ServiceEnum {
                 return serviceEnum.getServiceClass();
             }
         }
-        return null;
+        throw new ServiceNotFoundException("未找到可用服务！");
     }
 }

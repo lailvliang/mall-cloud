@@ -21,6 +21,7 @@ public class MobileAuthenticationToken extends AbstractAuthenticationToken {
 
 	private final Object principal;
 	private Object credentials;
+	private int servicetype;
 
 	// ~ Constructors
 	// ===================================================================================================
@@ -31,10 +32,11 @@ public class MobileAuthenticationToken extends AbstractAuthenticationToken {
 	 * will return <code>false</code>.
 	 *
 	 */
-	public MobileAuthenticationToken(String mobile, String password) {
+	public MobileAuthenticationToken(String mobile, String password,int servecetype) {
 		super(null);
 		this.principal = mobile;
 		this.credentials = password;
+		this.servicetype = servecetype;
 		setAuthenticated(false);
 	}
 
@@ -67,6 +69,8 @@ public class MobileAuthenticationToken extends AbstractAuthenticationToken {
 	public Object getPrincipal() {
 		return this.principal;
 	}
+
+	public int getServicetype(){return this.servicetype;}
 
 	@Override
 	public void setAuthenticated(boolean isAuthenticated) {

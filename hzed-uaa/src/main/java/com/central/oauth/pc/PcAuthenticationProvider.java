@@ -1,5 +1,6 @@
 package com.central.oauth.pc;
 
+import com.central.common.constant.ServiceEnum;
 import com.central.oauth.service.HzedUserDetailsService;
 import com.central.oauth2.common.token.MobileAuthenticationToken;
 import com.central.oauth2.common.token.PcAuthenticationToken;
@@ -10,6 +11,8 @@ import org.springframework.security.authentication.InternalAuthenticationService
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.xml.ws.Service;
 
 /**
  * @author hzed
@@ -24,8 +27,8 @@ public class PcAuthenticationProvider implements AuthenticationProvider {
         PcAuthenticationToken authenticationToken = (PcAuthenticationToken) authentication;
         String userName = (String) authenticationToken.getPrincipal();
         String password = (String) authenticationToken.getCredentials();
-        int serviceType = authenticationToken.getServicetype();
-        UserDetails user = userDetailsService.loadUserByUserName(userName,serviceType);
+        Class serviceClass = ServiceEnum.getServiceClassByType(authenticationToken.getServicetype());
+        UserDetails user = userDetailsService.loadUserByUserName(userName,serviceClass.getName());
         if (user == null) {
             throw new InternalAuthenticationServiceException("手机号或密码错误");
         }

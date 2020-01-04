@@ -12,11 +12,11 @@ public class PcAuthenticationToken extends AbstractAuthenticationToken {
     private Object credentials;
     private int servicetype;
 
-    public PcAuthenticationToken(String userName, int Servicetype, String password) {
+    public PcAuthenticationToken(String userName, String password, int servicetype) {
         super(null);
         this.principal = userName;
         this.credentials = password;
-        this.servicetype = Servicetype;
+        this.servicetype = servicetype;
         setAuthenticated(false);
     }
 

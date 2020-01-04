@@ -1,6 +1,9 @@
 package com.central.oauth.openid;
 
+import com.central.common.constant.ServiceEnum;
+import com.central.oauth.service.HzedUserDetailsService;
 import com.central.oauth2.common.token.OpenIdAuthenticationToken;
+import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
@@ -10,15 +13,17 @@ import org.springframework.social.security.SocialUserDetailsService;
 /**
  * @author hzed
  */
+@Setter
 public class OpenIdAuthenticationProvider implements AuthenticationProvider {
 
-    private SocialUserDetailsService userDetailsService;
+    private HzedUserDetailsService userDetailsService;
 
     @Override
     public Authentication authenticate(Authentication authentication) {
         OpenIdAuthenticationToken authenticationToken = (OpenIdAuthenticationToken) authentication;
         String openId = (String) authenticationToken.getPrincipal();
-        UserDetails user = userDetailsService.loadUserByUserId(openId);
+        Class serviceClass = ServiceEnum.getServiceClassByType(authenticationToken.getServicetype());
+        UserDetails user = userDetailsService.loadUserByUserId(openId,serviceClass.getName());
         if (user == null) {
             throw new InternalAuthenticationServiceException("openId错误");
         }
@@ -32,11 +37,4 @@ public class OpenIdAuthenticationProvider implements AuthenticationProvider {
         return OpenIdAuthenticationToken.class.isAssignableFrom(authentication);
     }
 
-    public SocialUserDetailsService getUserDetailsService() {
-        return userDetailsService;
-    }
-
-    public void setUserDetailsService(SocialUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
 }

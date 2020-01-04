@@ -17,6 +17,7 @@ public class OpenIdAuthenticationToken extends AbstractAuthenticationToken {
 	// ================================================================================================
 
 	private final Object principal;
+	private int servicetype;
 
 	// ~ Constructors
 	// ===================================================================================================
@@ -27,9 +28,10 @@ public class OpenIdAuthenticationToken extends AbstractAuthenticationToken {
 	 * will return <code>false</code>.
 	 *
 	 */
-	public OpenIdAuthenticationToken(String openId) {
+	public OpenIdAuthenticationToken(String openId,int servicetype) {
 		super(null);
 		this.principal = openId;
+		this.servicetype = servicetype;
 		setAuthenticated(false);
 	}
 
@@ -60,6 +62,10 @@ public class OpenIdAuthenticationToken extends AbstractAuthenticationToken {
 	@Override
 	public Object getPrincipal() {
 		return this.principal;
+	}
+
+	public int getServicetype(){
+		return this.servicetype;
 	}
 
 	@Override

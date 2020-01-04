@@ -13,7 +13,7 @@ public class TestGetLocalhostName {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        System.out.println(new Date());
+        System.out.println(TestGetLocalhostName.class.getName());
 
 
     }

@@ -5,6 +5,7 @@ import com.central.common.utils.ResponseUtil;
 import com.central.common.context.TenantContextHolder;
 import com.central.oauth2.common.token.MobileAuthenticationToken;
 import com.central.oauth2.common.token.OpenIdAuthenticationToken;
+import com.central.oauth2.common.token.PcAuthenticationToken;
 import com.central.oauth2.common.util.AuthUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
@@ -59,8 +60,9 @@ public class OAuth2Controller {
     public void getUserTokenInfo(
             @ApiParam(required = true, name = "username", value = "账号") String username,
             @ApiParam(required = true, name = "password", value = "密码") String password,
+            @ApiParam(required = true, name = "servicetype", value = "应用类型") int servicetype,
             HttpServletRequest request, HttpServletResponse response) throws IOException {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+        PcAuthenticationToken token = new PcAuthenticationToken(username, password,servicetype);
         writerToken(request, response, token, "用户名或密码错误");
     }
 
@@ -68,8 +70,9 @@ public class OAuth2Controller {
     @PostMapping(SecurityConstants.OPENID_TOKEN_URL)
     public void getTokenByOpenId(
             @ApiParam(required = true, name = "openId", value = "openId") String openId,
+            @ApiParam(required = true, name = "servicetype", value = "应用类型") int servicetype,
             HttpServletRequest request, HttpServletResponse response) throws IOException {
-        OpenIdAuthenticationToken token = new OpenIdAuthenticationToken(openId);
+        OpenIdAuthenticationToken token = new OpenIdAuthenticationToken(openId,servicetype);
         writerToken(request, response, token, "openId错误");
     }
 
@@ -78,8 +81,9 @@ public class OAuth2Controller {
     public void getTokenByMobile(
             @ApiParam(required = true, name = "mobile", value = "mobile") String mobile,
             @ApiParam(required = true, name = "password", value = "密码") String password,
+            @ApiParam(required = true, name = "servicetype", value = "应用类型") int servicetype,
             HttpServletRequest request, HttpServletResponse response) throws IOException {
-        MobileAuthenticationToken token = new MobileAuthenticationToken(mobile, password);
+        MobileAuthenticationToken token = new MobileAuthenticationToken(mobile, password,servicetype);
         writerToken(request, response, token, "手机号或密码错误");
     }
 

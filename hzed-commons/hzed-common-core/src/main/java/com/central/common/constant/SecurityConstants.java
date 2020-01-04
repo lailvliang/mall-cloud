@@ -32,6 +32,11 @@ public interface SecurityConstants {
     String TENANT_HEADER = "x-tenant-header";
 
     /**
+     * 应用服务类型信息头(应用)
+     */
+    String SERVICE_TYPE_HEADER = "x-servicetype-header";
+
+    /**
      * 基础角色
      */
     String BASE_ROLE = "ROLE_USER";

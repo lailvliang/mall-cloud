@@ -4,6 +4,7 @@ import com.central.common.constant.SecurityConstants;
 import com.central.oauth.mobile.MobileAuthenticationSecurityConfig;
 import com.central.oauth.openid.OpenIdAuthenticationSecurityConfig;
 import com.central.common.config.DefaultPasswordConfig;
+import com.central.oauth.pc.PcAuthenticationSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,6 +60,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private MobileAuthenticationSecurityConfig mobileAuthenticationSecurityConfig;
 
+	@Autowired
+	private PcAuthenticationSecurityConfig pcAuthenticationSecurityConfig;
+
 	/**
 	 * 这一步的配置是必不可少的，否则SpringBoot会自动配置一个AuthenticationManager,覆盖掉内存中的用户
 	 * @return 认证管理对象
@@ -94,6 +98,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .apply(openIdAuthenticationSecurityConfig)
                     .and()
 				.apply(mobileAuthenticationSecurityConfig)
+				.and()
+				.apply(pcAuthenticationSecurityConfig)
 					.and()
                 .csrf().disable()
 				// 解决不允许显示在iframe的问题

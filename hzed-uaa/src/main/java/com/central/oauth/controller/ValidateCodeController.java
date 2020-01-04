@@ -1,12 +1,16 @@
 package com.central.oauth.controller;
 
 import com.central.common.constant.SecurityConstants;
+import com.central.common.constant.ServiceEnum;
 import com.central.common.model.CommonResult;
 import com.central.oauth.service.IValidateCodeService;
 import com.wf.captcha.base.Captcha;
 import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.utils.CaptchaUtil;
+import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author hzed
  * @date 2018/12/18
  */
+@Slf4j
 @Controller
 public class ValidateCodeController {
     @Autowired
@@ -54,8 +59,15 @@ public class ValidateCodeController {
      */
     @ResponseBody
     @GetMapping(SecurityConstants.MOBILE_VALIDATE_CODE_URL_PREFIX + "/{mobile}")
-    public CommonResult createCode(@PathVariable String mobile) {
+    public CommonResult createCode(@PathVariable String mobile, @ApiParam(required = true, name = "servicetype", value = "应用类型") int servicetype) {
         Assert.notNull(mobile, "手机号不能为空");
-        return validateCodeService.sendSmsCode(mobile);
+        Class serviceClass = ServiceEnum.getServiceClassByType(servicetype);
+        if(serviceClass == null){
+            log.error("未找到可以用的微服务！");
+            return CommonResult.failed("服务器异常，请联系管理员处理");
+        }
+
+
+        return validateCodeService.sendSmsCode(mobile,serviceClass.getName());
     }
 }

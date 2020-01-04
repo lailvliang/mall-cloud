@@ -1,5 +1,6 @@
 package com.central.oauth.mobile;
 
+import com.central.common.constant.ServiceEnum;
 import com.central.oauth.service.HzedUserDetailsService;
 import com.central.oauth2.common.token.MobileAuthenticationToken;
 import lombok.Setter;
@@ -23,7 +24,8 @@ public class MobileAuthenticationProvider implements AuthenticationProvider {
         MobileAuthenticationToken authenticationToken = (MobileAuthenticationToken) authentication;
         String mobile = (String) authenticationToken.getPrincipal();
         String password = (String) authenticationToken.getCredentials();
-        UserDetails user = userDetailsService.loadUserByMobile(mobile);
+        Class serviceClass = ServiceEnum.getServiceClassByType(authenticationToken.getServicetype());
+        UserDetails user = userDetailsService.loadUserByMobile(mobile,serviceClass.getName());
         if (user == null) {
             throw new InternalAuthenticationServiceException("手机号或密码错误");
         }

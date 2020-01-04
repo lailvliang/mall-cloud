@@ -1,5 +1,6 @@
 package com.central.common.feign.fallback;
 
+import com.central.common.feign.UserCenterService;
 import com.central.common.feign.UserService;
 import com.central.common.model.LoginAppUser;
 import com.central.common.model.SysUser;
@@ -19,11 +20,6 @@ public class UserServiceFallbackFactory implements FallbackFactory<UserService> 
     @Override
     public UserService create(Throwable throwable) {
         return new UserService() {
-            @Override
-            public SysUser selectByUsername(String username) {
-                log.error("通过用户名查询用户异常:{}", username, throwable);
-                return new SysUser();
-            }
 
             @Override
             public LoginAppUser findByUsername(String username) {

@@ -13,6 +13,10 @@ public interface ServiceNameConstants {
      */
     String USER_SERVICE = "user-center";
     /**
+     * MallAdmin用户服务
+     */
+    String MALL_USER_SERVICE = "mall-admin";
+    /**
      * 搜索中心服务
      */
     String SEARCH_SERVICE = "search-center";

@@ -1,5 +1,6 @@
 package com.central.oauth.openid;
 
+import com.central.oauth.service.HzedUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OpenIdAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
     @Autowired
-    private SocialUserDetailsService userDetailsService;
+    private HzedUserDetailsService userDetailsService;
 
     @Override
     public void configure(HttpSecurity http) {

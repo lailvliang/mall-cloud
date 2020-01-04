@@ -1,6 +1,7 @@
 package com.central.oauth.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
+import com.central.common.feign.UserCenterService;
 import com.central.common.feign.UserService;
 import com.central.common.model.CommonResult;
 import com.central.common.redis.template.RedisRepository;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.ServletRequestUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author hzed
@@ -28,8 +30,8 @@ public class ValidateCodeServiceImpl implements IValidateCodeService {
     @Autowired
     private RedisRepository redisRepository;
 
-    @Resource
-    private UserService userService;
+    @Autowired
+    private Map<String, UserService> userServices;
 
     /**
      * 保存用户验证码，和randomStr绑定
@@ -54,13 +56,18 @@ public class ValidateCodeServiceImpl implements IValidateCodeService {
      * @return true、false
      */
     @Override
-    public CommonResult sendSmsCode(String mobile) {
+    public CommonResult sendSmsCode(String mobile,String serveceName) {
         Object tempCode = redisRepository.get(buildKey(mobile));
         if (tempCode != null) {
             log.error("用户:{}验证码未失效{}", mobile, tempCode);
             return CommonResult.failed("验证码未失效，请失效后再次申请");
         }
 
+        UserService userService = userServices.get(serveceName);
+        if (userService == null) {
+            log.error("未找到可用的微服务！");
+            return CommonResult.failed("服务器异常，请联系管理员处理");
+        }
         SysUser user = userService.findByMobile(mobile);
         if (user == null) {
             log.error("根据用户手机号{}查询用户为空", mobile);
