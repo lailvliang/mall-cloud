@@ -25,6 +25,8 @@ public class LoginAppUser extends SysUser implements SocialUserDetails {
 
     private Set<String> permissions;
 
+    private int servicetype;
+
     /***
      * 权限重写
      */

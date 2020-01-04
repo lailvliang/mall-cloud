@@ -30,21 +30,21 @@ public class UserDetailServiceImpl implements HzedUserDetailsService{
     private Map<String,UserService> userServices;
 
     @Override
-    public UserDetails loadUserByUserId(String openId,String serviceName) {
+    public LoginAppUser loadUserByUserId(String openId,String serviceName) {
         UserService userService = getService(serviceName);
         LoginAppUser loginAppUser = userService.findByOpenId(openId);
         return checkUser(loginAppUser);
     }
 
     @Override
-    public UserDetails loadUserByMobile(String mobile,String serviceName) {
+    public LoginAppUser loadUserByMobile(String mobile,String serviceName) {
         UserService userService = getService(serviceName);
         LoginAppUser loginAppUser = userService.findByMobile(mobile);
         return checkUser(loginAppUser);
     }
 
     @Override
-    public UserDetails loadUserByUserName(String userName, String serviceName)  {
+    public LoginAppUser loadUserByUserName(String userName, String serviceName)  {
         UserService userService = getService(serviceName);
         LoginAppUser loginAppUser = userService.findByUsername(userName);
         if (loginAppUser == null) {

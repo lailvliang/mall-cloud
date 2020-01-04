@@ -1,5 +1,6 @@
 package com.central.oauth.service;
 
+import com.central.common.model.LoginAppUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -16,9 +17,9 @@ public interface HzedUserDetailsService extends UserDetailsService{
      * @param mobile
      * @return
      */
-    UserDetails loadUserByMobile(String mobile,String serviceName);
+    LoginAppUser loadUserByMobile(String mobile, String serviceName);
 
-    UserDetails loadUserByUserName(String userName,String serviceName);
+    LoginAppUser loadUserByUserName(String userName,String serviceName);
 
-    UserDetails loadUserByUserId(String userId,String serviceName);
+    LoginAppUser loadUserByUserId(String userId,String serviceName);
 }

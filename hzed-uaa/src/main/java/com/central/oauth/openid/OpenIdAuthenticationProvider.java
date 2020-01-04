@@ -1,6 +1,7 @@
 package com.central.oauth.openid;
 
 import com.central.common.constant.ServiceEnum;
+import com.central.common.model.LoginAppUser;
 import com.central.oauth.service.HzedUserDetailsService;
 import com.central.oauth2.common.token.OpenIdAuthenticationToken;
 import lombok.Setter;
@@ -23,10 +24,11 @@ public class OpenIdAuthenticationProvider implements AuthenticationProvider {
         OpenIdAuthenticationToken authenticationToken = (OpenIdAuthenticationToken) authentication;
         String openId = (String) authenticationToken.getPrincipal();
         Class serviceClass = ServiceEnum.getServiceClassByType(authenticationToken.getServicetype());
-        UserDetails user = userDetailsService.loadUserByUserId(openId,serviceClass.getName());
+        LoginAppUser user = userDetailsService.loadUserByUserId(openId,serviceClass.getName());
         if (user == null) {
             throw new InternalAuthenticationServiceException("openId错误");
         }
+        user.setServicetype(authenticationToken.getServicetype());
         OpenIdAuthenticationToken authenticationResult = new OpenIdAuthenticationToken(user, user.getAuthorities());
         authenticationResult.setDetails(authenticationToken.getDetails());
         return authenticationResult;
