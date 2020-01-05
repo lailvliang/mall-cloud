@@ -29,4 +29,8 @@ public class UmsAdminParam {
     private String nickName;
     @ApiModelProperty(value = "备注")
     private String note;
+    @ApiModelProperty(value = "手机号码")
+    private String mobile;
+
+
 }

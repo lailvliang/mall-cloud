@@ -27,7 +27,7 @@ public interface MallUserService extends UserService{
      * @param username
      * @return
      */
-    @GetMapping(value = "/users-anon/login", params = "username")
+    @GetMapping(value = "/admin/login", params = "username")
     LoginAppUser findByUsername(@RequestParam("username") String username);
 
     /**
@@ -35,7 +35,7 @@ public interface MallUserService extends UserService{
      *
      * @param mobile 手机号
      */
-    @GetMapping(value = "/users-anon/mobile", params = "mobile")
+    @GetMapping(value = "/admin/mobile", params = "mobile")
     LoginAppUser findByMobile(@RequestParam("mobile") String mobile);
 
     /**
@@ -43,6 +43,6 @@ public interface MallUserService extends UserService{
      *
      * @param openId openId
      */
-    @GetMapping(value = "/users-anon/openId", params = "openId")
+    @GetMapping(value = "/admin/openId", params = "openId")
     LoginAppUser findByOpenId(@RequestParam("openId") String openId);
 }

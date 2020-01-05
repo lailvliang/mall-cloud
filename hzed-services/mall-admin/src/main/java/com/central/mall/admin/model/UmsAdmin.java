@@ -1,10 +1,14 @@
 package com.central.mall.admin.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
 
+@Getter
+@Setter
 public class UmsAdmin implements Serializable {
     private Long id;
 
@@ -29,6 +33,9 @@ public class UmsAdmin implements Serializable {
 
     @ApiModelProperty(value = "最后登录时间")
     private Date loginTime;
+
+    @ApiModelProperty(value = "手机号码")
+    private String mobile;
 
     @ApiModelProperty(value = "帐号启用状态：0->禁用；1->启用")
     private Integer status;

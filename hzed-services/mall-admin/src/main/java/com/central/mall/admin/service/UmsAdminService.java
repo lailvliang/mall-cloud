@@ -1,5 +1,6 @@
 package com.central.mall.admin.service;
 
+import com.central.common.model.LoginAppUser;
 import com.central.mall.admin.dto.UmsAdminParam;
 import com.central.mall.admin.dto.UpdateAdminPasswordParam;
 import com.central.mall.admin.model.UmsAdmin;
@@ -25,19 +26,6 @@ public interface UmsAdminService {
      */
     UmsAdmin register(UmsAdminParam umsAdminParam);
 
-    /**
-     * 登录功能
-     * @param username 用户名
-     * @param password 密码
-     * @return 生成的JWT的token
-     */
-    String login(String username, String password);
-
-    /**
-     * 刷新token的功能
-     * @param oldToken 旧的token
-     */
-    String refreshToken(String oldToken);
 
     /**
      * 根据用户id获取用户
@@ -89,5 +77,5 @@ public interface UmsAdminService {
     /**
      * 获取用户信息
      */
-    UserDetails loadUserByUsername(String username);
+    LoginAppUser loadUserByUsername(String username);
 }

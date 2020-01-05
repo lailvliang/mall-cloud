@@ -2,6 +2,7 @@ package com.central.mall.admin.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import com.central.common.model.LoginAppUser;
 import com.github.pagehelper.PageHelper;
 import com.central.mall.admin.dao.UmsAdminPermissionRelationDao;
 import com.central.mall.admin.dao.UmsAdminRoleRelationDao;
@@ -33,10 +34,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -95,25 +93,6 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         return umsAdmin;
     }
 
-    @Override
-    public String login(String username, String password) {
-        String token = null;
-        //密码需要客户端加密后传递
-//        try {
-//            UserDetails userDetails = loadUserByUsername(username);
-//            if(!passwordEncoder.matches(password,userDetails.getPassword())){
-//                throw new BadCredentialsException("密码不正确");
-//            }
-//            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//            token = jwtTokenUtil.generateToken(userDetails);
-////            updateLoginTimeByUsername(username);
-//            insertLoginLog(username);
-//        } catch (AuthenticationException e) {
-//            LOGGER.warn("登录异常:{}", e.getMessage());
-//        }
-        return token;
-    }
 
     /**
      * 添加登录记录
@@ -141,11 +120,6 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         adminMapper.updateByExampleSelective(record, example);
     }
 
-    @Override
-    public String refreshToken(String oldToken) {
-//        return jwtTokenUtil.refreshHeadToken(oldToken);
-        return null;
-    }
 
     @Override
     public UmsAdmin getItem(Long id) {
@@ -268,53 +242,22 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username){
+    public LoginAppUser loadUserByUsername(String username){
         //获取用户信息
         UmsAdmin admin = getAdminByUsername(username);
         if (admin != null) {
             List<UmsPermission> permissionList = getPermissionList(admin.getId());
-//            return new AdminUserDetails(admin,permissionList);
-            return new UserDetails(){
-
-                @Override
-                public Collection<? extends GrantedAuthority> getAuthorities() {
-                    //返回当前用户的权限
-                    return permissionList.stream()
-                            .filter(permission -> permission.getValue()!=null)
-                            .map(permission ->new SimpleGrantedAuthority(permission.getValue()))
-                            .collect(Collectors.toList());
-                }
-
-                @Override
-                public String getPassword() {
-                    return admin.getPassword();
-                }
-
-                @Override
-                public String getUsername() {
-                    return admin.getUsername();
-                }
-
-                @Override
-                public boolean isAccountNonExpired() {
-                    return true;
-                }
-
-                @Override
-                public boolean isAccountNonLocked() {
-                    return true;
-                }
-
-                @Override
-                public boolean isCredentialsNonExpired() {
-                    return true;
-                }
-
-                @Override
-                public boolean isEnabled() {
-                    return admin.getStatus().equals(1);
-                }
-            };
+            LoginAppUser loginAppUser = new LoginAppUser();
+            Set<String> permissions = permissionList.parallelStream().map(p -> p.getUri())
+                    .collect(Collectors.toSet());
+            // 设置权限集合
+            loginAppUser.setPermissions(permissions);
+            loginAppUser.setUsername(admin.getUsername());
+            loginAppUser.setPassword(admin.getPassword());
+            loginAppUser.setEnabled(admin.getStatus().equals(1));
+            loginAppUser.setNickname(admin.getNickName());
+            loginAppUser.setId(admin.getId());
+            return loginAppUser;
         }
         throw new UsernameNotFoundException("用户名或密码错误");
     }

@@ -3,6 +3,7 @@ package com.central.common.model;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,9 +35,13 @@ public class LoginAppUser extends SysUser implements SocialUserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new HashSet<>();
-        if (!CollectionUtils.isEmpty(super.getRoles())) {
-            super.getRoles().parallelStream().forEach(role -> collection.add(new SimpleGrantedAuthority(role.getCode())));
+        if (!CollectionUtils.isEmpty(getPermissions())) {
+            getPermissions().stream()
+                    .filter(permission -> permission!=null)
+                    .map(permission ->new SimpleGrantedAuthority(permission))
+                    .collect(Collectors.toList());
         }
+
         return collection;
     }
 

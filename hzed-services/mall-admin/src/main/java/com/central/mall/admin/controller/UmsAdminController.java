@@ -1,5 +1,6 @@
 package com.central.mall.admin.controller;
 
+import com.central.common.model.LoginAppUser;
 import com.central.common.model.PageResult;
 import com.central.common.model.CommonResult;
 import com.central.mall.admin.dto.UmsAdminLoginParam;
@@ -33,10 +34,6 @@ import java.util.Map;
 public class UmsAdminController {
     @Autowired
     private UmsAdminService adminService;
-//    @Value("${jwt.tokenHeader}")
-//    private String tokenHeader;
-//    @Value("${jwt.tokenHead}")
-//    private String tokenHead;
 
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -49,33 +46,14 @@ public class UmsAdminController {
         return CommonResult.success(umsAdmin);
     }
 
-    @ApiOperation(value = "登录以后返回token")
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    /**
+     * 查询用户登录对象LoginAppUser
+     */
+    @GetMapping(value = "/login", params = "username")
+    @ApiOperation(value = "根据用户名查询用户")
     @ResponseBody
-    public CommonResult login(@RequestBody UmsAdminLoginParam umsAdminLoginParam, BindingResult result) {
-        String token = adminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());
-        if (token == null) {
-            return CommonResult.validateFailed("用户名或密码错误");
-        }
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
-//        tokenMap.put("tokenHead", tokenHead);
-        return CommonResult.success(tokenMap);
-    }
-
-    @ApiOperation(value = "刷新token")
-    @RequestMapping(value = "/refreshToken", method = RequestMethod.GET)
-    @ResponseBody
-    public CommonResult refreshToken(HttpServletRequest request) {
-//        String token = request.getHeader(tokenHeader);
-//        String refreshToken = adminService.refreshToken(token);
-//        if (refreshToken == null) {
-//            return CommonResult.failed("token已经过期！");
-//        }
-        Map<String, String> tokenMap = new HashMap<>();
-//        tokenMap.put("token", refreshToken);
-//        tokenMap.put("tokenHead", tokenHead);
-        return CommonResult.success(tokenMap);
+    public LoginAppUser findByUsername(String username) {
+        return adminService.loadUserByUsername(username);
     }
 
     @ApiOperation(value = "获取当前登录用户信息")
@@ -89,13 +67,6 @@ public class UmsAdminController {
         data.put("roles", new String[]{"TEST"});
         data.put("icon", umsAdmin.getIcon());
         return CommonResult.success(data);
-    }
-
-    @ApiOperation(value = "登出功能")
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult logout() {
-        return CommonResult.success(null);
     }
 
     @ApiOperation("根据用户名或姓名分页获取用户列表")
