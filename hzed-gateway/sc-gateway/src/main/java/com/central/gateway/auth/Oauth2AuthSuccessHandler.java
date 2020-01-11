@@ -14,6 +14,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.stream.Collectors;
+
 /**
  * 认证成功处理类  调用内部微服务添加请求头信息
  *
@@ -34,11 +36,14 @@ public class Oauth2AuthSuccessHandler implements ServerAuthenticationSuccessHand
             headerValues.add(SecurityConstants.USER_ID_HEADER, String.valueOf(user.getId()));
             headerValues.add(SecurityConstants.USER_HEADER, user.getUsername());
             headerValues.add(SecurityConstants.SERVICE_TYPE_HEADER,String.valueOf(user.getServicetype()));
+            headerValues.add(SecurityConstants.ROLE_HEADER, CollectionUtil.join(
+                    user.getRoles().parallelStream().map(p -> p.getCode())
+                            .collect(Collectors.toList()),","));
         }
         OAuth2Authentication oauth2Authentication = (OAuth2Authentication)authentication;
         String clientId = oauth2Authentication.getOAuth2Request().getClientId();
         headerValues.add(SecurityConstants.TENANT_HEADER, clientId);
-        headerValues.add(SecurityConstants.ROLE_HEADER, CollectionUtil.join(authentication.getAuthorities(), ","));
+        headerValues.add(SecurityConstants.PERMISSION_HEADER, CollectionUtil.join(authentication.getAuthorities(), ","));
         ServerWebExchange exchange = webFilterExchange.getExchange();
         ServerHttpRequest serverHttpRequest = exchange.getRequest().mutate()
                 .headers(h -> {

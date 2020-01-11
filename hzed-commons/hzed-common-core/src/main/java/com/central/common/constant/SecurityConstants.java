@@ -25,7 +25,10 @@ public interface SecurityConstants {
      * 角色信息头
      */
     String ROLE_HEADER = "x-role-header";
-
+    /**
+     * 权限信息头
+     */
+    String PERMISSION_HEADER = "x-permission-header";
     /**
      * 租户信息头(应用)
      */

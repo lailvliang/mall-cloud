@@ -36,7 +36,7 @@ public class LoginAppUser extends SysUser implements SocialUserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new HashSet<>();
         if (!CollectionUtils.isEmpty(getPermissions())) {
-            getPermissions().stream()
+            collection = getPermissions().stream()
                     .filter(permission -> permission!=null)
                     .map(permission ->new SimpleGrantedAuthority(permission))
                     .collect(Collectors.toList());

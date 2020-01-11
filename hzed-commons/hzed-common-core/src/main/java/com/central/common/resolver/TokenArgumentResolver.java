@@ -7,6 +7,7 @@ import com.central.common.constant.ServiceEnum;
 import com.central.common.exception.ServiceNotFoundException;
 import com.central.common.feign.UserCenterService;
 import com.central.common.feign.UserService;
+import com.central.common.model.LoginAppUser;
 import com.central.common.model.SysRole;
 import com.central.common.model.SysUser;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +19,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Token转化SysUser
@@ -66,8 +64,8 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
         String userId = request.getHeader(SecurityConstants.USER_ID_HEADER);
         String username = request.getHeader(SecurityConstants.USER_HEADER);
         String roles = request.getHeader(SecurityConstants.ROLE_HEADER);
+        String permissions = request.getHeader(SecurityConstants.PERMISSION_HEADER);
         String serivcetype = request.getHeader(SecurityConstants.SERVICE_TYPE_HEADER);
-
         Class serviceClass = ServiceEnum.getServiceClassByType(Integer.valueOf(serivcetype).intValue());
         UserService userService = userServices.get(serviceClass.getName());
         if(serviceClass == null){
@@ -78,11 +76,11 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
             log.warn("resolveArgument error username is empty");
             return null;
         }
-        SysUser user;
+        LoginAppUser user;
         if (isFull) {
             user = userService.findByUsername(username);
         } else {
-            user = new SysUser();
+            user = new LoginAppUser();
             user.setId(Long.valueOf(userId));
             user.setUsername(username);
         }
@@ -93,6 +91,11 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
             sysRoleList.add(sysRole);
         });
         user.setRoles(sysRoleList);
+        Set<String> permissionSet = new HashSet<>();
+        Arrays.stream(permissions.split(",")).forEach(permission -> {
+            permissionSet.add(permission);
+        });
+        user.setPermissions(permissionSet);
         return user;
     }
 }
